@@ -1,0 +1,292 @@
+
+/* style.css */
+
+body {
+  background: linear-gradient(to bottom, #000044, #00000F);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 0;
+
+}
+.about-me {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14pt;
+}
+.about-me h1 {
+  font-size: 32pt;
+}
+
+.about-me p {
+  max-width: 600px; 
+  margin: 0 auto; 
+  text-align: center; 
+}
+
+.about me a, .about-me a:link, .about-me a:visited, .about-me a:hover, .about-me a:active{
+  color: #fff;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.header {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 26pt;
+  margin-bottom: 20px;
+}
+
+.project {
+  display: inline-block;
+  width: 25%;
+  margin: 1%;
+  padding: 1%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  cursor: pointer;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 14pt;
+}
+
+.project:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.project img {
+  max-width: 100%;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  margin-top: 0px;
+}
+
+.project h2 {
+  font-size: 18pt;
+  margin-top: 0px;
+  margin-bottom: 10px;
+}
+
+.popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(to bottom, #000000, #000000);
+  border-radius: 25px;
+  width: 60%;
+  height: 70%;
+  overflow: auto;
+  flex-direction: row;
+}
+.popup-content {
+  justify-content: space-between;
+  padding: 15px;
+}
+
+.popup-content .links-and-facts {
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 5px;
+  background-color: rgb(22, 22, 22);
+  border-radius: 25px; 
+  width: 90%;
+  height: 90%;
+  box-sizing: border-box; 
+}
+
+.popup-content .description {
+  padding-left: 40px;
+  padding-right: 40px;
+}
+
+.links-and-facts a:link, .links-and-facts a:visited, .links-and-facts a:hover, .links-and-facts a:active {
+  color: white;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.socials {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.other-technologies {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+
+.subheader {
+  font-size: 14pt;
+  color: #b4b4b4;
+  margin-top: -20px;
+  margin-bottom: 20px;
+}
+
+.web-note {
+  color: #757575;
+  font-size: 12px;
+  margin-top: auto;
+}
+
+/* Labels */
+
+.godot, .unreal, .unity, .modding, .cplusplus, .csharp, .java, .blueprints, .qa, .technology-label, .game-design {
+  display: inline-block;
+  padding: 5 10px; 
+  margin-bottom: 10px;
+  margin-left: 3px;
+  margin-right: 3px;
+  border-radius: 20px; 
+  font-weight: bold;
+}
+
+.godot {
+  background-color: #5079ff; 
+  color: white; 
+}
+
+.unreal {
+  background-color: #313131; 
+  color: white; 
+}
+
+.unity {
+  background-color: #bebebe; 
+  color: rgb(0, 0, 0); 
+}
+
+.modding {
+  background-color: #00a300; 
+  color: white; 
+}
+
+.java {
+  background-color: #cc0000; 
+  color: white; 
+}
+
+.csharp {
+  background-color: #0000ff; 
+  color: white; 
+}
+
+.cplusplus {
+  background-color: #0099ff; 
+  color: white; 
+}
+
+.blueprints {
+  background-color: #160091; 
+  color: white; 
+}
+
+.qa {
+  background-color: #00e93a; 
+  color: rgb(0, 0, 0); 
+}
+
+.game-design {
+  background-color: #e98c00; 
+  color: rgb(0, 0, 0); 
+}
+
+/* Gallery */
+.gallery {
+  height: 400px;
+}
+
+.gallery-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.galleryImgContainer {
+  position: relative;
+  height: 90%;
+  width: 800px;
+  max-width: 100%;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.galleryImg {
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0 auto;
+  border-radius: 20px; 
+}
+
+.imageDescription {
+  font-size: 14px;
+  text-align: center;
+  color:rgb(151, 151, 151);
+}
+
+.prevBtn,
+.nextBtn {
+  position: absolute;
+  top: 50%;
+  background-color: transparent;
+  border: none;
+  font-size: 64px;
+  color: #fff;
+  cursor: pointer;
+  transition: color 0.3s;
+  z-index: 1;
+  transform: translateY(-50%);
+}
+
+.prevBtn:hover,
+.nextBtn:hover {
+  color: #636363;
+}
+
+.prevBtn {
+  left: 10px;
+}
+
+.nextBtn {
+  right: 10px;
+}
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+::-webkit-scrollbar-track {
+  background: black;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #414141;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5f5f5f;
+}
