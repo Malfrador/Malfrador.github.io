@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="gallery">
         <div class="galleryImgContainer">
             <button class="prevBtn">&#10094;</button>
-            <img class="galleryImg" src="${this.images[0]}" alt="Gallery Image">
+            <img class="galleryMedia" src="${this.images[0]}" alt="Gallery Image">
             <div class="imageDescription">${this.descriptions[0]}</div>
             <button class="nextBtn">&#10095;</button>
         </div>
@@ -29,8 +29,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     showImage(index) {
       const container = document.getElementById(this.containerId);
-      container.querySelector('.galleryImg').src = this.images[index];
-      container.querySelector('.imageDescription').innerText = this.descriptions[index];
+      const mediaContainer = container.querySelector('.galleryImgContainer');
+      const itemURL = this.images[index];
+      const description = this.descriptions[index];
+      const isVideo = itemURL.endsWith('.mp4');
+    
+      const existingMedia = mediaContainer.querySelector('.galleryImg, .galleryMedia');
+      if (existingMedia) {
+        existingMedia.remove();
+      }
+    
+      if (isVideo) {
+        const video = document.createElement('video');
+        video.setAttribute('src', itemURL);
+        video.setAttribute('controls', '');
+        video.classList.add('galleryMedia'); 
+        mediaContainer.insertBefore(video, mediaContainer.querySelector('.imageDescription'));
+      } else {
+        const img = document.createElement('img');
+        img.setAttribute('src', itemURL);
+        img.classList.add('galleryMedia'); 
+        mediaContainer.insertBefore(img, mediaContainer.querySelector('.imageDescription'));
+      }
+    
+      // Update description
+      container.querySelector('.imageDescription').innerText = description;
     }
 
     nextImage() {
@@ -45,15 +68,18 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   const gallery1 = new SimpleGallery(
-    ['images/hunt/cover.jpg', 'images/hunt/mechanics.png'],
-    ['A scene from the prototype level', 
-    'A variety of mechanics, including climbing, dragging of bodies, destructible walls, items and respawning.'],
+    ['images/hunt/gameplay.jpg', 'images/hunt/queue.mp4', 'images/hunt/targeting.mp4', 'images/hunt/multiplayer.mp4', 'images/hunt/translucency.mp4'	],
+    ['Gameplay screenshot. Two characters approaching the city gate, already spotted by a guard.', 
+    'The game features a queue system that allows players to queue up actions when playing alone, to allow for more complex strategies.', 
+    'Some example use of abilities in the debugging level.',
+    'A little demonstration of multiplayer working and correctly replicating the game.',
+    'Objects become translucent when they are between the player and camera.'],
     'gallery1'
   );
 
   const gallery2 = new SimpleGallery(
     ['images/gygo/cover.png', 'images/gygo/programming.png', 'images/gygo/dialogues.png', 'images/gygo/gamedesign.png', 'images/gygo/pdf.png'],
-    ['The main screen of the game. Here the player has to complete all rooms, for a total of 7 tasks.', 
+    ['The main screen of the game. Here the player has to complete all rooms, for a total of seven tasks.', 
     'The programming task. Inspired by visual scripting like Blueprints, the player has to get the character on the right to move.', 
     'The assessment also features a dialogue system, to immerse the player into the setting.', 
     'The game design task. The player has to find applicable player types for a given game.', 

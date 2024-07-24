@@ -80,10 +80,11 @@ body {
   transform: translate(-50%, -50%);
   background: linear-gradient(to bottom, #000000, #000000);
   border-radius: 25px;
-  width: 60%;
-  height: 70%;
+  width: 70%;
+  height: 85%;
   overflow: auto;
   flex-direction: row;
+  overscroll-behavior: contain;
 }
 .popup-content {
   justify-content: space-between;
@@ -96,20 +97,51 @@ body {
   padding-top: 5px;
   background-color: rgb(22, 22, 22);
   border-radius: 25px; 
-  width: 90%;
-  height: 90%;
+  width: 80%;
+  height: 25%;
   box-sizing: border-box; 
+  max-width: 300px;
+  position: absolute;
+  top: 500px;
 }
 
 .popup-content .description {
   padding-left: 40px;
   padding-right: 40px;
+  text-align: left;
+}
+
+.popup-content h2 {
+  font-size: 32pt;
+}
+
+.popup-content h3 {
+  font-size: 16pt;
+  text-align: center;
 }
 
 .links-and-facts a:link, .links-and-facts a:visited, .links-and-facts a:hover, .links-and-facts a:active {
   color: white;
 }
 
+.links-entry {
+  text-align: left;
+}
+
+.embedded-media {
+  float: left;
+  margin-right: 20px;
+  border-radius: 20px;
+  max-width: 50%;
+  overflow: visible;
+}
+
+.embedded-media video {
+  width: 100%; 
+  height: auto; 
+  border-radius: 30px; 
+  filter: blur(0);
+}
 .close-btn {
   position: absolute;
   top: 10px;
@@ -151,10 +183,10 @@ body {
 
 .godot, .unreal, .unity, .modding, .cplusplus, .csharp, .java, .blueprints, .qa, .technology-label, .game-design {
   display: inline-block;
-  padding: 5 10px; 
-  margin-bottom: 10px;
-  margin-left: 3px;
-  margin-right: 3px;
+  padding: 8px;
+  margin-bottom: 5px;
+  margin-left: 5px;
+  margin-right: 5px;
   border-radius: 20px; 
   font-weight: bold;
 }
@@ -232,17 +264,20 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
+} 
 
-.galleryImg {
+.galleryMedia {
   max-width: 100%;
   max-height: 100%;
   margin: 0 auto;
   border-radius: 20px; 
+  filter: blur(0); /* Fix for text becoming blurry when a video is visible. ??? I don't envy anyone who actually does web dev */
 }
 
 .imageDescription {
-  font-size: 14px;
+  font-size: 16px;
+  text-wrap: wrap;
+  margin-top: 0px;
   text-align: center;
   color:rgb(151, 151, 151);
 }
@@ -273,6 +308,7 @@ body {
 .nextBtn {
   right: 10px;
 }
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 15px;
