@@ -1,0 +1,70 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <script type="text/javascript" src="../script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Malte Schümann</title>
+</head>
+<body class="project-page">
+    <div class="header-bg" onclick="location.href='../index.html';" style="cursor: pointer;">
+        <h1 class="page-header">Malte Schümann - Portfolio</h1>
+    </div>
+    <div class="page-content">
+    <h2>Mythical Hunt</h2>
+    <p class="project-header">Two player online co-op RTT game with a vampire theme and some RPG elements, made in Unreal Engine 5.</p>
+    <table>
+        <tr>
+            <td colspan="2" class="page-content">
+                <div id="gallery1" class="gallery-container"></div>
+            </td>
+            <td class="page-content">           
+                <div class="page-content links-and-facts">
+                    <h3 style="text-align: center;">Links and Facts</h3>
+                    <div class="links-entry">
+                        <b>Team size:</b> 7 <br />
+                        <b>Duration:</b> 12 weeks <br />
+                        <b>Project start:</b> 2024 <br />
+                        <b>Engine:</b> Unreal Engine 5.3 <br />
+                        <a class="links-entry" href="https://www.youtube.com/watch?v=GH8DZozDGMk" target="_blank">Gameplay Trailer</a><br />
+                        <a class="links-entry" href="https://sporegameshnu.itch.io/mythical-hunt" target="_blank">Mythical Hunt on itch.io</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="page-content description">
+                <p>Mythical Hunt is a co-op multiplayer RTT game developed in Unreal Engine over the course of 12 weeks. The game features a vampire/werewolf theme. 
+                    Players can freely switch between four different characters, combining their abilities to defeat enemies and make it through the levels. The game, made in Unreal Engine 5.3, features four abilities per character, Multiplayer using Steamworks, and a variety of enemies.</p>
+                <h3>My role</h3>
+                <p>In our team of seven, I was the lead programmer, managing and teaching two other programmers. We mostly worked in Blueprints, although some more critical aspects of the game were done in C++ by me. <br />I mainly was responsible for the abilities, multiplayer and UI, as well as general systems.</p>
+                <h3>Developing character abilities using GAS</h3>
+                <div  class="embedded-media">
+                    <video controls> <source src="../images/hunt/targeting.mp4" type="video/mp4"></video>
+                    <p class="imageDescription">Some example use of abilities in the debugging level.</p>
+                </div>
+                <p>One of my responsibilities was implementing all 16 abilities for the characters. For this I choose to use Unreal Engines Gameplay Ability System, as that provided good support for multiplayer networking out of the box. This was my first time using
+                    GAS, so it was a challenge at first. <br /> The challenge was mainly due to the lack of documentation available for GAS, which meant that I had to read the GAS source code and rely on incomplete third party documentation. <br /><br />For example, a completely undocumented 
+                    caveat meant that the GAS lost its reference to the Ability System, the component attached to a character that is responsible for using abilities and tracking gameplay effects, when the controller of that character changed. This in turn lead to a crash of the game. 
+                    Tracking this issue down proved to be quite difficult, as the crash happened in the Unreal Engine source code, and the call stack was not very helpful. <br />After a lot of debugging and reading the source code, I found the issue and was able to fix it by refreshing the 
+                    reference whenever a character was switched. 
+                    <br /> <br/>
+                    In the end, I was able to implement all the 16 abilities in time, further iterating upon them by adding more features such as quick-cast mode based on initial testing feedback. </p>
+                </p>
+                <h3>Co-op multiplayer using Steamworks</h3>
+                <p>From the start, we wanted co-op Multiplayer in Mythical Hunt. As I was the only developer with any multiplayer experience, this responsibility naturally fell to me. <br />As such, I was responsible to ensure that all gameplay-relevant systems used RPCs in the 
+                    correct places. We went with a "Listen Server" setup, where one of the clients also acted the server. This seemed suitable for our small-scale multiplayer with a maximum of four players. The listen server acts authoritative, 
+                    meaning that it has the final especially regarding abilities. While not really necessary in terms of game-integrity for a game like Mythical Hunt, it reduced the possibilities of desync occurding. More for fun I also decided to 
+                    make movement server-authorative, meaning that the client requests a position from the server, which the server confirms. To reduce visual lag, the client will also start moving at the same time. 
+                    However, the server will correct the client if it tries to move in a different location than the server decided it should. This was not necessary for the game, but I wanted to try it out and it was a great learning experience.
+                    <br /> <br />
+                    <div  class="embedded-media">
+                        <video controls> <source src="../images/hunt/multiplayer.mp4" type="video/mp4"></video>
+                        <p class="imageDescription">A little demonstration of multiplayer working and correctly replicating the game.</p>
+                    </div>
+                    To make multiplayer easily accessible, we decided to use Steamworks for the networking. This was a good choice, as it provided a lot of the functionality we needed out of the box. Implementing multiplayer was surprisingly issue-free. The most challenging part proved 
+                    replicating abilities and their animations correctly, as the Unreal Engine implementation of this is not very well documented.
+                </p>
+
+            </td>
+        </tr>
+    </table>
+</body>

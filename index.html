@@ -18,277 +18,42 @@
     </div>
     <div class="container">
         <h1 class="header">Projects</h1>
-        <h4 class="subheader">Click on a project to learn more</h4>
-        
-        <div class="project" onclick="togglePopup('hunt', event)">
+        <h4 class="subheader">Click on a project to learn more</h4>      
+        <div class="project" onclick="location.href='../projects/hunt.html';" style="cursor: pointer;">
             <h2>Mythical Hunt</h2>
             <img src="images/hunt/cover.png" alt="Mythical Hunt">
             <div class="unreal">Unreal 5</div><div class="cplusplus">C++</div><div class="blueprints">Blueprints</div>
-            <p>Two player online co-op RTT game with a vampire theme and some RPG elements, made in Unreal Engine 5.</p>
-            <div class="popup" style="display: none;" data-project="hunt">
-                <div class="popup-content">
-                    <button class="close-btn">&times;</button>
-                    <h2>Mythical Hunt</h2>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="2" class="popup-content" style="width: 100%;">
-                                <div id="gallery1" class="gallery-container"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="popup-content description" style="width: 80%;">
-                                <p>Mythical Hunt is a co-op multiplayer RTT game developed in Unreal Engine over the course of 12 weeks. The game features a vampire/werewolf theme. 
-                                    Players can freely switch between four different characters, combining their abilities to defeat enemies and make it through the levels. The game, made in Unreal Engine 5.3, features four abilities per character, Multiplayer using Steamworks, and a variety of enemies.</p>
-                                <h3>My role</h3>
-                                <p>In our team of seven, I was the lead programmer, managing and teaching two other programmers. We mostly worked in Blueprints, although some more critical aspects of the game were done in C++ by me. <br />I mainly was responsible for the abilities, multiplayer and UI, as well as general systems.</p>
-                                <h3>Developing character abilities using GAS</h3>
-                                <div  class="embedded-media">
-                                    <video controls> <source src="images/hunt/targeting.mp4" type="video/mp4"></video>
-                                    <p class="imageDescription">Some example use of abilities in the debugging level.</p>
-                                </div>
-                                <p>One of my responsibilities was implementing all 16 abilities for the characters. For this I choose to use Unreal Engines Gameplay Ability System, as that provided good support for multiplayer networking out of the box. This was my first time using
-                                    GAS, so it was a challenge at first. <br /> The challenge was mainly due to the lack of documentation available for GAS, which meant that I had to read the GAS source code and rely on incomplete third party documentation. <br /><br />For example, a completely undocumented 
-                                    caveat meant that the GAS lost its reference to the Ability System, the component attached to a character that is responsible for using abilities and tracking gameplay effects, when the controller of that character changed. This in turn lead to a crash of the game. 
-                                    Tracking this issue down proved to be quite difficult, as the crash happened in the Unreal Engine source code, and the call stack was not very helpful. <br />After a lot of debugging and reading the source code, I found the issue and was able to fix it by refreshing the 
-                                    reference whenever a character was switched. 
-                                    <br /> <br/>
-                                    In the end, I was able to implement all the 16 abilities in time, further iterating upon them by adding more features such as quick-cast mode based on initial testing feedback. </p>
-                                </p>
-                                <h3>Co-op multiplayer using Steamworks</h3>
-                                <div  class="embedded-media">
-                                    <video controls> <source src="images/hunt/multiplayer.mp4" type="video/mp4"></video>
-                                    <p class="imageDescription">A little demonstration of multiplayer working and correctly replicating the game.</p>
-                                </div>
-                                <p>From the start, we wanted co-op Multiplayer in Mythical Hunt. As I was the only developer with any multiplayer experience, this responsibility naturally fell to me. <br />As such, I was responsible to ensure that all gameplay-relevant systems used RPCs in the 
-                                    correct places. We went with a "Listen Server" setup, where one of the clients also acted the server. This seemed suitable for our small-scale multiplayer with a maximum of four players. The listen server acts authoritative, 
-                                    meaning that it has the final especially regarding abilities. While not really necessary in terms of game-integrity for a game like Mythical Hunt, it reduced the possibilities of desync occurding. More for fun I also decided to 
-                                    make movement server-authorative, meaning that the client requests a position from the server, which the server confirms. To reduce visual lag, the client will also start moving at the same time. 
-                                    However, the server will correct the client if it tries to move in a different location than the server decided it should. This was not necessary for the game, but I wanted to try it out and it was a great learning experience.
-                                    <br /> <br />
-                                    To make multiplayer easily accessible, we decided to use Steamworks for the networking. This was a good choice, as it provided a lot of the functionality we needed out of the box. Implementing multiplayer was surprisingly issue-free. The most challenging part proved 
-                                    replicating abilities and their animations correctly, as the Unreal Engine implementation of this is not very well documented.
-                                 </p>
-
-                            </td>
-                            <td class="popup-content" style="width: 20%;">           
-                                <div class="popup-content links-and-facts">
-                                    <h3 style="text-align: center;">Links and Facts</h3>
-                                    <div class="links-entry">
-                                        <b>Team size:</b> 7 <br />
-                                        <b>Duration:</b> 12 weeks <br />
-                                        <b>Project start:</b> 2024 <br />
-                                        <b>Engine:</b> Unreal Engine 5.3 <br />
-                                        <a class="links-entry" href="https://www.youtube.com/watch?v=GH8DZozDGMk" target="_blank">Gameplay Trailer</a><br />
-                                        <a class="links-entry" href="https://sporegameshnu.itch.io/mythical-hunt" target="_blank">Mythical Hunt on itch.io</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <p>Two player online co-op RTT game with a vampire theme and some RPG elements, made in Unreal Engine 5.</p>  
         </div>
-        <div class="project" onclick="togglePopup('gygo', event)">
+        <div class="project" onclick="location.href='../projects/gygo.html';" style="cursor: pointer;">
             <h2>Get Your Game On</h2>
             <img src="images/gygo/cover.png" alt="Get your game on">
             <div class="godot">Godot 3</div><div class="csharp">C#</div>
             <p>Game-based assessment for the Game Development course at my university. Includes automatic scoring in a variety of categories.</p>
-            <div class="popup" style="display: none;" data-project="gygo">
-                <div class="popup-content">
-                    <button class="close-btn">&times;</button>
-                    <h2>Get Your Game On</h2>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="2" class="popup-content" style="width: 100%;">
-                                <div id="gallery2" class="gallery-container"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="popup-content description" style="width: 80%;">
-                                <p>Get Your Game On is a game-based assignment, where players experience a simplified version of the game development process. The game is intended to assess how suitable someone is for the Game Development course at HNU university. The game was well-received by the course director,
-                                    but has not yet been used in the course. The game is made in Godot 3, and features seven tasks that players have to complete that represent the different aspects of game development.
-                                    <h3>My role</h3>
-                                    I was lead programmer on this project, and specifically responsible for the scoring system, dialogues and the
-                                    programming, management and game design tasks. I was also responble for the game design of the programming task.
-                                    <h3>Implementing tasks</h3>
-                                    <div  class="embedded-media">
-                                        <img src="images/gygo/programming.png" alt="Programming task" />
-                                        <p class="imageDescription">The programming task in-game. Nodes on the left, game in the top right.</p>
-                                    </div>
-                                    For the programming task, I took heavy inspiration from visual scripting languages such as Blueprint or Scratch. The player has to implement a very simple behaviour: A jump-and-run movement mechanic. For this, they have to connect the correct nodes in
-                                    the correct order and then sucessfully run their completed "game". <br /><br />I decided on using visual scripting to create a task that relies on logic and problem-solving, but not on syntax. This was to ensure that the task could be completed by people with no current programming experience
-                                    but the necessary logical thinking skills to quickly learn programming, as well as to ensure that the task could be completed no matter which programming language the player is familiar with. 
-                                    <br /><br />
-                                    I implemented a simplified visual scripting language for this task. Instead of just faking it with a pre-defined solution, every visual scripting node is actually evaluated and executed. This means that the player can create their own solution, as long as it is correct. It also made it very easy
-                                    to award points for only partial completions. For example, some points are awarded if the player manages to move the character. However, significantly more points are awarded if the character only moves when the correct key is pressed. 
-                                    <br />
-                                    To ensure that the player can not freeze the assessment, some error-checking is performed prior to execution, such as checking for infinite loops or unreachable code. Some error messages are also sent to the player as feedback.
-                                    I would have liked to run the code in a sandboxed environment, but this was not possible due to the limitations of Godots web export. 
-                                    <br /><br />
-                                    Creating a little language like this was an interesting learning experience, and while it was not necessary for the task, it was a fun challenge and was well-received by the players.
-                                </p>
-                            </td>
-                            <td class="popup-content" style="width: 20%;">           
-                                <div class="popup-content links-and-facts">
-                                    <h3 style="text-align: center;">Links and Facts</h3>
-                                    <div class="links-entry">
-                                        <b>Team size:</b> 7 <br />
-                                        <b>Duration:</b> 8 weeks <br />
-                                        <b>Project start:</b> 2023 <br />
-                                        <b>Engine:</b> Godot <br />
-                                        <a href="https://lab.schuemann.dev" target="_blank">Play in browser</a><br />
-                                        <a href="https://gist.github.com/Malfrador/4a895c1dcb58f11b019afed73f639d7b" target="_blank">Technical Document</a><br />
-                                        <a href="https://youtu.be/1xukADoqLgA" target="_blank">Trailer</a>
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
-        <div class="project" onclick="togglePopup('qxl', event)">
+        <div class="project" onclick="location.href='../projects/erethon.html';" style="cursor: pointer;">
             <h2>Erethon</h2>
             <img src="images/qxl/cover.png" alt="QuestsXL">
             <div class="java">Java</div><div class="modding"><div></div>Modding</div><div class="game-design">Design</div>
             <p>Minecraft server-side modding project for a PvP MMORPG. Including player-created factions, large-scale wars and PvE content.</p>
-            <div class="popup" style="display: none;" data-project="qxl">
-                <div class="popup-content">
-                    <button class="close-btn">&times;</button>
-                    <h2>Erethon</h2>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="2" class="popup-content" style="width: 100%;">
-                                <div id="gallery4" class="gallery-container"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="popup-content description" style="width: 80%;">
-                                <p>WIP</p>
-                            </td>
-                            <td class="popup-content" style="width: 20%;">           
-                                <div class="popup-content links-and-facts">
-                                    <h3 style="text-align: center;">Links and Facts</h3>
-                                    <div class="links-entry">
-                                        <b>Team size:</b> 10<br />
-                                        <b>Project start:</b> 2020<br />
-                                        <a href="https://erethon.de" target="_blank">Erethon website (German)</a><br />
-                                        <a href="https://www.youtube.com/watch?v=R-HWAiNj9Nw" target="_blank">Teaser trailer</a><br />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
-        <div class="project" onclick="togglePopup('papyrus', event)">
+        <div class="project" onclick="location.href='../projects/papyrus.html';" style="cursor: pointer;">
             <h2>Papyrus</h2>
             <img src="images/papyrus/cover.jpg" alt="Papyrus">
             <div class="java">Java</div><div class="modding"><div></div>Modding</div>
             <p>Server software for Erethon, including a fully-featured RPG system with hundreds of skills, items, traits and enemies.</p>
-            <div class="popup" style="display: none;" data-project="papyrus">
-                <div class="popup-content">
-                    <button class="close-btn">&times;</button>
-                    <h2>Papyrus</h2>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="2" class="popup-content" style="width: 100%;">
-                                <div id="gallery3" class="gallery-container"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="popup-content description" style="width: 80%;">
-                                <p>WIP</p>
-                            </td>
-                            <td class="popup-content" style="width: 20%;">           
-                                <div class="popup-content links-and-facts">
-                                    <h3 style="text-align: center;">Links and Facts</h3>
-                                    <div class="links-entry">
-                                        <b>Project start:</b> 2021<br />
-                                        <a href="https://github.com/DRE2N/Papyrus" target="_blank">Github Repository</a><br />
-                                        <a href="https://docs.erethon.de/aether/ai_goals" target="_blank">AI Documentation and examples (German)</a><br />
-                                        <a href="https://erethon.de" target="_blank">Erethon website (German)</a><br />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
-        <div class="project" onclick="togglePopup('obsession', event)">
+        <div class="project" onclick="location.href='../projects/obsession.html';" style="cursor: pointer;">
             <h2>Obsession</h2>
             <img src="images/obsession/cover.jpg" alt="Obsession">
             <div class="unity">Unity 2022</div><div class="csharp">C#</div>
             <p>Point-and-click adventure game made in Unity, featuring turn-based combat with AI enemies and multiple puzzles.</p>
-            <div class="popup" style="display: none;" data-project="obsession">
-                <div class="popup-content">
-                    <button class="close-btn">&times;</button>
-                    <h2>Obsession</h2>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="2" class="popup-content" style="width: 100%;">
-                                <div id="gallery5" class="gallery-container"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="popup-content description" style="width: 80%;">
-                                <p>WIP</p>
-                            </td>
-                            <td class="popup-content" style="width: 20%;">           
-                                <div class="popup-content links-and-facts">
-                                    <h3 style="text-align: center;">Links and Facts</h3>
-                                    <div class="links-entry">
-                                        <b>Team size:</b> 5<br />
-                                        <b>Duration:</b> 9 weeks<br />
-                                        <b>Project start:</b> 2022<br />
-                                        <b>Engine:</b> Unity<br />
-                                        <a href="https://www.youtube.com/watch?v=_YPeZauz3MQ" target="_blank">Trailer</a><br />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
-        <div class="project" onclick="togglePopup('paper', event)">
+        <div class="project" onclick="location.href='https://papermc.io/';" style="cursor: pointer;">
             <h2>PaperMC</h2>
             <img src="images/paper/cover.png" alt="PaperMC">
             <div class="java">Java</div><div class="qa">QA</div><div class="modding"><div></div>Modding</div>
             <p>I am part of the triage team as well as a contributor at PaperMC, the most popular modded Minecraft server software.</p>
-            <div class="popup" style="display: none;" data-project="paper">
-                <div class="popup-content">
-                    <button class="close-btn">&times;</button>
-                    <h2>Paper</h2>
-                    <table style="width: 100%;">
-                        <tr>
-                            <td colspan="2" class="popup-content" style="width: 100%;">
-                                <div id="gallery6" class="gallery-container"></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="popup-content description" style="width: 80%;">
-                                <p>Paper is the most popular modded Minecraft server software, used by over hundred thousand servers, and has a large community of developers and users. As well as Paper, the PaperMC organisation also offers proxy software with Velocity, capable of handling thousands of
-                                    players on a single instance, as well as Folia, an experimental server capable of handling hundreds of players thanks to its fully multi-threaded architecture, where a minecraft world is split into multiple parts, each handled by a separate thread.
-                                    <br /> <br />
-                                    I have been part of the issue triage team since 2023, where I help categorize and prioritize issues, as well as provide support to users. I also contribute to the project by fixing bugs and adding new features.
-                                </p>
-                            </td>
-                            <td class="popup-content" style="width: 20%;">           
-                                <div class="popup-content links-and-facts">
-                                    <h3 style="text-align: center;">Links and Facts</h3>
-                                    <div class="links-entry">
-                                        <a href="https://papermc.io" target="_blank">Website</a><br />
-                                        <a href="https://github.com/PaperMC/Paper/issues" target="_blank">Issue Tracker</a><br />
-                                    </div>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
     <div class="other-technologies">
         <h2 class="header">Languages & Tools</h2>

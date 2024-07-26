@@ -1,0 +1,63 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <script type="text/javascript" src="../script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Malte Schümann</title>
+</head>
+<body class="project-page">
+        <div class="header-bg" onclick="location.href='../index.html';" style="cursor: pointer;">
+            <h1 class="page-header">Malte Schümann - Portfolio</h1>
+        </div>
+        <div class="page-content">
+        <h2>Erethon</h2>
+        <p class="project-header">Minecraft server-side modding project for a PvP MMORPG. Including player-created factions, large-scale wars and PvE content.</p>
+        <table>
+            <tr>
+                <td colspan="2" class="page-content">
+                    <div id="gallery4" class="gallery-container"></div>
+                </td>
+                <td class="page-content">           
+                    <div class="page-content links-and-facts">
+                        <h3 style="text-align: center;">Links and Facts</h3>
+                        <div class="links-entry">
+                            <b>Project start:</b> 2021<br />
+                            <a href="https://github.com/DRE2N/QuestsXL" target="_blank">Github Repository</a><br />
+                            <a href="https://erethon.de/docs/questsxl/intro" target="_blank">QXL docs (German)</a><br />
+                            <a href="https://erethon.de" target="_blank">Erethon website (German)</a><br />
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td class="page-content description">
+                    <p>Erethon is a Minecraft server-side modding project for a PvP MMORPG. Erethon itself has existed since 2011, with me working on the project as a developer since 2017, but the current iteration started in 2020. The project is developed by a team of 10 people, and features a large-scale world with a variety of biomes, dungeons and quests. Over the years, Erethon was enjoyed by thousands of players, and has a dedicated community. <br />
+                        <br />
+                        The main focus of Erethon are the player-created factions, which in turn are part of three larger alliances. Inspired by older RvR games such as Dark Age of Camelot, the game mode features large-scale wars between these alliances, where players can capture and defend territory, but combines them with the well-known Minecraft sandbox building mechanics.
+                        <h3>My role</h3>
+                        I have developed the following features for Erethon: <br />
+                        - <b>Spellbook:</b> A fully-featured RPG system with four classes, hundreds of skills and traits and everything else you would expect from a MMORPG. Explained in more detail <a href="https://schuemann.dev/index.html#papyrus">here</a>.<br />
+                        - <b>QuestsXL:</b> A quest and world event system, where players can participate in events and quests to earn rewards. Quests can be scripted in a flexible YAML-based language that I developed. <br />
+                        - <b>Hephaestus:</b> A library for creating and managing custom items and blocks, extending existing Minecraft item behaviours. <br />
+                        - <b>Aether:</b> A NPC system allowing for custom NPCs with custom AI and goals, who can use skills from Spellbook. <br />
+                        <br />
+                        Additionally I have been responsible for the server setup and maintenance, as well as acting as one of three project leads for a team of around 10 volunteers.
+                        <h3>QuestsXL</h3>
+                        <p>QuestsXL is the system Erethon uses for quests and events. Events are activities that occur in the world, either on a schedule or triggered in some way, that players can freely participate in. Quests are more structured, have a clear goal and can only be completed once. 
+                            Some documentation and examples (in German) are available <a href="https://erethon.de/docs/questsxl/intro">here</a>. <br />
+                            <div  class="embedded-media">
+                                <img src="../images/qxl/example.png" alt="Quest def" />
+                                <p class="imageDescription">An example quest, written in YAML</p>
+                            </div>
+                            QuestsXL uses three different components: Objectives, Actions and Conditions. Those three components are used for both events and quests. <br/ ><br />
+                            - Objectives are goals that have to be completed. Completion all goals in a stage progresses to the next stage. <br />
+                            - Actions are things that happen. This can be anything from giving a player an item to spawning a boss. Actions can be attached to many things, including objectives, stages, conditions and other actions. <br />
+                            - Conditions are requirements that have to be met. Conditions can also be attached to objectives, stages, actions, other conditions and events. 
+                            <br /> <br />
+                            The ability to put those components together in a flexible way allows for a wide variety of quests and events. For example, it is incredibly easy to add optional objectives to a quest, or to have a quest that can be completed in multiple ways. In a similar vein, its super easy to scale the difficulty - just create another action that spawns more enemies, and put it in a condition that e.g. only triggers if the player is above a certain level. <br />
+                            This flexibility was very important to us, and the main reason I decided to write our own quest system instead of using an existing one, as those tend to be more rigid in their structure. <br />
+                        </p>
+                    </p>
+                </td>
+            </tr>
+        </table>
+</body>

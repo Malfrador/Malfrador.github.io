@@ -1,0 +1,61 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+    <script type="text/javascript" src="../script.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Malte Schümann</title>
+</head>
+<body class="project-page">
+    <div class="header-bg" onclick="location.href='../index.html';" style="cursor: pointer;">
+        <h1 class="page-header">Malte Schümann - Portfolio</h1>
+    </div>
+    <div class="page-content">
+    <h2>Get Your Game On</h2>
+    <p class="project-header">Game-based assessment for the Game Development course at my university. Includes automatic scoring in a variety of categories.</p>
+    <table>
+        <tr>
+            <td colspan="2" class="page-content">
+                <div id="gallery2" class="gallery-container"></div>
+            </td>
+            <td class="page-content">           
+                <div class="page-content links-and-facts">
+                    <h3 style="text-align: center;">Links and Facts</h3>
+                    <div class="links-entry">
+                        <b>Team size:</b> 7 <br />
+                        <b>Duration:</b> 8 weeks <br />
+                        <b>Project start:</b> 2023 <br />
+                        <b>Engine:</b> Godot <br />
+                        <a href="https://lab.schuemann.dev" target="_blank">Play in browser</a><br />
+                        <a href="https://gist.github.com/Malfrador/4a895c1dcb58f11b019afed73f639d7b" target="_blank">Technical Document</a><br />
+                        <a href="https://youtu.be/1xukADoqLgA" target="_blank">Trailer</a>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="page-content description">
+                <p>Get Your Game On is a game-based assignment, where players experience a simplified version of the game development process. The game is intended to assess how suitable someone is for the Game Development course at HNU university. The game was well-received by the course director,
+                    but has not yet been used in the course. The game is made in Godot 3, and features seven tasks that players have to complete that represent the different aspects of game development.
+                    <h3>My role</h3>
+                    I was lead programmer on this project, and specifically responsible for the scoring system, dialogues and the
+                    programming, management and game design tasks. I was also responble for the game design of the programming task.
+                    <h3>Implementing tasks</h3>
+                    <div  class="embedded-media">
+                        <img src="../images/gygo/programming.png" alt="Programming task" />
+                        <p class="imageDescription">The programming task in-game. Nodes on the left, game in the top right.</p>
+                    </div>
+                    For the programming task, I took heavy inspiration from visual scripting languages such as Blueprint or Scratch. The player has to implement a very simple behaviour: A jump-and-run movement mechanic. For this, they have to connect the correct nodes in
+                    the correct order and then sucessfully run their completed "game". <br /><br />I decided on using visual scripting to create a task that relies on logic and problem-solving, but not on syntax. This was to ensure that the task could be completed by people with no current programming experience
+                    but the necessary logical thinking skills to quickly learn programming, as well as to ensure that the task could be completed no matter which programming language the player is familiar with. 
+                    <br /><br />
+                    I implemented a simplified visual scripting language for this task. Instead of just faking it with a pre-defined solution, every visual scripting node is actually evaluated and executed. This means that the player can create their own solution, as long as it is correct. It also made it very easy
+                    to award points for only partial completions. For example, some points are awarded if the player manages to move the character. However, significantly more points are awarded if the character only moves when the correct key is pressed. 
+                    <br />
+                    To ensure that the player can not freeze the assessment, some error-checking is performed prior to execution, such as checking for infinite loops or unreachable code. Some error messages are also sent to the player as feedback.
+                    I would have liked to run the code in a sandboxed environment, but this was not possible due to the limitations of Godots web export. 
+                    <br /><br />
+                    Creating a little visual language like this was an interesting learning experience, and while it was not necessary for the task, it was a fun challenge and was well-received by the players.
+                </p>
+            </td>
+        </tr>
+    </table>
+</body>
