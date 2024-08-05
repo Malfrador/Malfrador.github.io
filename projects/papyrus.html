@@ -22,7 +22,6 @@
                         <div class="links-entry">
                             <b>Project start:</b> 2021<br />
                             <a href="https://github.com/DRE2N/Papyrus" target="_blank">Github Repository</a><br />
-                            <a href="https://docs.erethon.de/aether/ai_goals" target="_blank">AI Documentation and examples (German)</a><br />
                             <a href="https://erethon.de" target="_blank">Erethon website (German)</a><br />
                         </div>
                     </div>
@@ -30,7 +29,32 @@
             </tr>
             <tr>
                 <td class="page-content description">
-                   <p>WIP</p>
+                   <p>Papyrus is modified Minecraft server software, based on Paper. It includes a fully-featured RPG system called Spellbook that completely reworks Minecraft combat from the ground up. 
+                    Enemies and players now have a variety of offensive and defensive attributes such as Mana, elemental damage and resistance, CDR and more. Additionally Spellbook adds skills that can be used
+                    by players and NPCs.  
+                    <br /> <br />
+                    <div  class="embedded-media">
+                        <img src="../images/papyrus/graph.png" alt="Quest def" />
+                        <p class="imageDescription">Graphical representation of the Spellbook spell queue system. <a href="../images/papyrus/graph.png" target="_blank">Open image in new tab</a></p>
+                    </div>
+                    Performance was a major concern during development, as the server has to be able to handle thousands of entities and up to 100 players at once, with a lot of them using skills and fighting.
+                    To achieve this and especially create a smooth and fair combat experience, Spellbook uses a queue. This queue is used to schedule skill activations and ensure that they are executed in the correct order.
+                    This allows the server to distribute the load evenly between ticks (50ms), and ensures that skills are always executed in order of casting. 
+                    <br />To reduce delay, the skill will however be executed immedeatly if the server is not under heavy load, leading to the same 50ms delay as vanilla Minecraft in most cases.
+                    <br /> <br /><br /> <br /> <br /> <br /> <br /> <br />
+                    <div  class="embedded-media">
+                        <img src="../images/papyrus/spell.png" alt="Java file for a spell" />
+                        <p class="imageDescription">Java class for a skill that pushes enemies around the caster back.  <a href="../images/papyrus/spell.png" target="_blank">Open image in new tab</a></p>
+                    </div>
+                    Spellbook skills themselves are defined in a seperate plugin .jar, to allow for fast iteration. The plugin is loaded at runtime and can be reloaded without restarting the server. Skill values are read from YAML files, which allows for easy balancing and modification.
+                    Skills are implemented by extending and overriding classes provided by Spellbook, and can always be used by players and NPCs alike. Spellbook handles a lot of the heavy lifting, such as checking for cooldowns, mana costs, targetting and more. This makes
+                    implementing new skills very easy and fast.
+                    <br /> <br />
+                    Additionally Spellbook features traits that can be applied to players and NPCs. Traits are passive abilities that can modify the behaviour of skills, stats or other things. For example, a trait could increase the damage of all fire spells by 10%.
+                    In total, Spellbook features over 100 skills and 150 traits, divided into four classes: Warrior, Ranger, Paladin and Assassin.
+                    <br /> 
+                    Papyrus also includes systems for equipment, items, enemies and more.
+                   </p> 
 
                 </td>
             </tr>

@@ -93,20 +93,27 @@ if (document.getElementById('gallery2')) {
 
 if (document.getElementById('gallery3')) {
   const gallery3 = new SimpleGallery(
-    ['../images/papyrus/graph.png', '../images/papyrus/rpg.png', '../images/papyrus/lotsofnpcs.png'],
-    ['Schematic verview of the Spellbook skill system','Elements of the RPG systems, including UI, items, item upgrades, passive traits and enemy AI', 
-    'A large number of aggressive NPCs. The server is able to handle several thousands of them at 20hz'],
+    ['../images/papyrus/hammer_smash.gif', '../images/papyrus/rpg.png', '../images/papyrus/lotsofnpcs.png'],
+    ['A skill being used','Elements of the RPG systems, including UI, items, item upgrades, passive traits and enemy AI', 
+    'A large number of aggressive NPCs in a cave'],
     'gallery3'
   );
 }
 if (document.getElementById('gallery4')) {
   const gallery4 = new SimpleGallery(
-    ['../images/qxl/cover.png', '../images/qxl/example.png', '../images/qxl/dialogue.png', '../images/qxl/minimap.png'],
+    ['../images/qxl/landscape.jpg', '../images/qxl/example.png', '../images/qxl/dialogue.png', '../images/qxl/minimap.png'],
     ['One of the main cities. They act as a hub where the player can interact with NPCs, buy and sell items and complete quests.', 
     'An example of a simple QXL quest definition, written in YAML', 
     'The dialogue system. Minecraft only has a single chat channel and no ability to delete messages, so a few tricks were neccessary to preserve chat history', 
     'The minimap, available without requiring client-side mods.'],
     'gallery4'
+  );
+}
+if (document.getElementById('gallery5')) {
+  const gallery3 = new SimpleGallery(
+    ['../images/obsession/combat.jpg', '../images/obsession/puzzle.png'],
+    ['The player character fighting one enemy.','One of the puzzles'],
+    'gallery5'
   );
 }
 });
