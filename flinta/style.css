@@ -1,0 +1,107 @@
+
+
+/* Global Text Color */
+body {
+  color: #3A2B2E;
+}
+
+/* Navigation Button (40px tall, 20px rounded corners) */
+.btn-nav {
+  background-color: #FCFAF9;
+  color: #3A2B2E;
+  height: 30px;
+  padding: 0 0.75rem;
+  border-radius: 10px;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 2px 4px #3A2B2E;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.btn-nav:hover {
+  background-color: #6750A4;
+  color: #FCFAF9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Tag Button (30px tall, 10px rounded corners) */
+.btn-tag {
+  background: linear-gradient(to right, #F8D1B8, #FF7573);
+  color: #FCFAF9;
+  height: 30px;
+  padding: 0 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.75rem;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.btn-tag:hover {
+  opacity: 0.9;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Field/Form Button (60px tall, 20px rounded corners) */
+.btn-field {
+  background-color: #F2F0EC;
+  color: #3A2B2E;
+  height: 60px;
+  padding: 0 2rem;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 1rem;
+  border: none;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+}
+
+.btn-field:hover {
+  background-color: #6750A4;
+  color: #FCFAF9;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Auth Form Button (Login/Register buttons) */
+.btn-auth {
+  background-color: #C0B6D7;
+  color: #FCFAF9;
+  width: 100%;
+  padding: 0.75rem 0;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-auth:hover {
+  background-color: #6750A4;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+  transform: scale(1.02);
+}
+
+/* ===== BRAND COLORS ===== */
+.bg-brand-purple { background-color: #AC94B8; }
+.bg-brand-peach { background-color: #fff1e6; }
+.bg-brand-mission { background-color: #e2d1db; }
+.border-brand-blue { border-color: #FCFAF9; }

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - FLINTA* Circle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #F5EBE9; }
+        .text-brand-purple { color: #6B5B7A; }
+        #header-placeholder, #footer-placeholder { opacity: 0; transition: opacity 0.2s; }
+        #header-placeholder.loaded, #footer-placeholder.loaded { opacity: 1; }
+        
+        /* Hide horizontal scrollbar but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <link rel="stylesheet" href="css/bookmark-modal.css">
+    <script src="js/events-data.js"></script>
+    <script src="js/events-utils.js"></script>
+    <script src="js/bookmark-modal.js"></script>
+</head>
+<body class="font-sans text-gray-800">
+
+    <div id="header-placeholder" class="sticky top-0 z-50"></div>
+
+    <main class="max-w-6xl mx-auto px-6 py-8 mt-28">
+        
+        <!-- Page Title -->
+        <section class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Events</h1>
+            <p class="text-gray-600">Entdecke FLINTA*-freundliche Events in Ulm und Umgebung.</p>
+        </section>
+
+        <!-- Für Dich -->
+        <section class="mb-12">
+            <h2 class="text-xl font-bold text-brand-purple mb-4">Für Dich</h2>
+            
+            <!-- Tabs and Filter -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex gap-4">
+                    <button id="tab-heute" class="tab-btn px-4 py-2 rounded-lg text-gray-600 font-semibold text-sm" data-tab="heute">Heute</button>
+                    <button id="tab-week" class="tab-btn px-4 py-2 rounded-lg text-gray-600 font-semibold text-sm" data-tab="week">Diese Woche</button>
+                    <button id="tab-month" class="tab-btn px-4 py-2 rounded-lg text-gray-600 font-semibold text-sm" data-tab="month">Dieser Monat</button>
+                </div>
+                <button class="p-2 hover:bg-gray-100 rounded-lg transition" title="Filter">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Horizontal Scrollable Cards -->
+            <div class="relative">
+                <button id="scroll-left" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white transition opacity-0 pointer-events-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                </button>
+                <button id="scroll-right" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white/90 backdrop-blur-sm p-2 rounded-full shadow-lg hover:bg-white transition">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                    </svg>
+                </button>
+                <div id="event-carousel" class="flex gap-4 overflow-x-auto hide-scrollbar pb-4 scroll-smooth">
+                    <!-- Carousel cards will be dynamically generated in here -->
+                </div>
+            </div>
+
+            <!-- Carousel Dots -->
+            <div id="carousel-dots" class="flex justify-center gap-2 mt-4">
+            </div>
+        </section>
+
+        <!-- Entdecke Events -->
+        <section>
+            <h2 class="text-xl font-bold text-brand-purple mb-4">Entdecke Events</h2>
+            
+            <!-- Month/Year Filter and Refresh -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="flex gap-3">
+                    <!-- Custom Month Dropdown -->
+                    <div class="relative" id="month-dropdown-container">
+                        <button id="month-dropdown-btn" class="px-4 py-2 bg-stone-50 rounded-[20px] shadow-[0px_4px_4px_0px_rgba(58,43,46,0.15)] font-semibold text-sm text-zinc-800 tracking-wide cursor-pointer hover:bg-stone-100 transition flex items-center gap-2 min-w-[120px]">
+                            <span id="month-selected-text">Monat</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div id="month-dropdown-menu" class="absolute top-full left-0 mt-2 w-48 bg-stone-50 rounded-[20px] shadow-[0px_4px_4px_0px_rgba(58,43,46,0.15)] overflow-hidden z-50 hidden max-h-[400px] overflow-y-auto">
+                            <div class="py-2">
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="">Monat</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="1">Januar</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="2">Februar</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="3">März</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="4">April</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="5">Mai</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="6">Juni</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="7">Juli</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="8">August</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="9">September</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="10">Oktober</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="11">November</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-month-value="12">Dezember</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Custom Year Dropdown -->
+                    <div class="relative" id="year-dropdown-container">
+                        <button id="year-dropdown-btn" class="px-4 py-2 bg-stone-50 rounded-[20px] shadow-[0px_4px_4px_0px_rgba(58,43,46,0.15)] font-semibold text-sm text-zinc-800 tracking-wide cursor-pointer hover:bg-stone-100 transition flex items-center gap-2 min-w-[100px]">
+                            <span id="year-selected-text">Jahr</span>
+                            <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                            </svg>
+                        </button>
+                        <div id="year-dropdown-menu" class="absolute top-full left-0 mt-2 w-32 bg-stone-50 rounded-[20px] shadow-[0px_4px_4px_0px_rgba(58,43,46,0.15)] overflow-hidden z-50 hidden">
+                            <div class="py-2">
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-year-value="">Jahr</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-year-value="2025">2025</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-year-value="2026">2026</div>
+                                <div class="px-4 py-2 text-sm text-zinc-800 font-semibold tracking-wide cursor-pointer hover:bg-stone-100 transition" data-year-value="2027">2027</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button id="refresh-events" class="p-2 hover:bg-gray-100 rounded-lg transition" title="Aktualisieren">
+                    <svg class="w-5 h-5 transition-transform duration-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Event Grid -->
+            <div id="event-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6 transition-opacity duration-300">
+                <!-- Event cards will be dynamically generated in here -->
+            </div>
+
+            <!-- Mehr -->
+            <div id="mehr-container" class="text-center">
+                <button id="mehr-btn" class="text-brand-purple font-semibold text-sm underline hover:text-purple-900 transition">Mehr</button>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder" class="mt-16"></div>
+
+    <script>
+        // Load header and footer components
+        function loadComponent(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    const element = document.getElementById(id);
+                    element.innerHTML = data;
+                    element.classList.add('loaded');
+                    
+                    // Execute any scripts in the loaded content
+                    element.querySelectorAll('script').forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        newScript.textContent = oldScript.textContent;
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                });
+        }
+
+        // Initialize page when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            loadComponent('header-placeholder', 'header.html');
+            loadComponent('footer-placeholder', 'footer.html');
+            
+            // Render events from data
+            renderCarouselEvents(eventsData);
+            renderGridEvents(eventsData);
+            
+            // Initialize all event handlers
+            initializeScrollButtons();
+            initializeCarouselDots();
+            initializeTabs();
+            initializeCustomDropdowns();
+            initializeFilters();
+            initializeMehrButton();
+            
+            // Update scroll buttons after content is fully rendered
+            setTimeout(() => {
+                const carousel = document.getElementById('event-carousel');
+                const scrollLeftBtn = document.getElementById('scroll-left');
+                const scrollRightBtn = document.getElementById('scroll-right');
+                
+                const canScrollLeft = carousel.scrollLeft > 0;
+                const canScrollRight = carousel.scrollLeft < carousel.scrollWidth - carousel.clientWidth - 10;
+                
+                scrollLeftBtn.style.opacity = canScrollLeft ? '1' : '0';
+                scrollLeftBtn.style.pointerEvents = canScrollLeft ? 'auto' : 'none';
+                scrollRightBtn.style.opacity = canScrollRight ? '1' : '0';
+                scrollRightBtn.style.pointerEvents = canScrollRight ? 'auto' : 'none';
+            }, 100);
+        });
+
+        function initializeScrollButtons() {
+            const carousel = document.getElementById('event-carousel');
+            const scrollLeftBtn = document.getElementById('scroll-left');
+            const scrollRightBtn = document.getElementById('scroll-right');
+
+            function updateScrollButtons() {
+                const canScrollLeft = carousel.scrollLeft > 0;
+                const canScrollRight = carousel.scrollLeft < carousel.scrollWidth - carousel.clientWidth - 10;
+                
+                scrollLeftBtn.style.opacity = canScrollLeft ? '1' : '0';
+                scrollLeftBtn.style.pointerEvents = canScrollLeft ? 'auto' : 'none';
+                scrollRightBtn.style.opacity = canScrollRight ? '1' : '0';
+                scrollRightBtn.style.pointerEvents = canScrollRight ? 'auto' : 'none';
+            }
+
+            scrollLeftBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: -300, behavior: 'smooth' });
+            });
+
+            scrollRightBtn.addEventListener('click', () => {
+                carousel.scrollBy({ left: 300, behavior: 'smooth' });
+            });
+
+            carousel.addEventListener('scroll', updateScrollButtons);
+            window.addEventListener('resize', updateScrollButtons);
+            updateScrollButtons();
+        }
+
+        function initializeCarouselDots() {
+            const carousel = document.getElementById('event-carousel');
+            
+            function updateActiveDot() {
+                const carouselCards = carousel.querySelectorAll('.flex-shrink-0');
+                const carouselDots = document.querySelectorAll('.carousel-dot');
+                const scrollLeft = carousel.scrollLeft;
+                const cardWidth = carouselCards[0]?.offsetWidth || 280;
+                const currentIndex = Math.round(scrollLeft / cardWidth);
+                
+                carouselDots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.remove('bg-gray-300', 'w-2');
+                        dot.classList.add('bg-gray-400', 'w-6');
+                    } else {
+                        dot.classList.remove('bg-gray-400', 'w-6');
+                        dot.classList.add('bg-gray-300', 'w-2');
+                    }
+                });
+            }
+            
+            // Add click handlers to dots after they're created
+            setTimeout(() => {
+                const carouselDots = document.querySelectorAll('.carousel-dot');
+                const carouselCards = carousel.querySelectorAll('.flex-shrink-0');
+                
+                carouselDots.forEach(dot => {
+                    dot.addEventListener('click', () => {
+                        const index = parseInt(dot.getAttribute('data-index'));
+                        const cardWidth = carouselCards[0]?.offsetWidth || 280;
+                        carousel.scrollTo({ left: index * cardWidth, behavior: 'smooth' });
+                    });
+                });
+            }, 100);
+            
+            carousel.addEventListener('scroll', updateActiveDot);
+            setTimeout(updateActiveDot, 100);
+        }
+
+        function initializeTabs() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            const carousel = document.getElementById('event-carousel');
+            
+            const today = new Date();
+            const todayTime = today.getTime();
+            
+            const weekFromNow = new Date(today);
+            weekFromNow.setDate(today.getDate() + 7);
+            const weekTime = weekFromNow.getTime();
+            
+            const monthFromNow = new Date(today);
+            monthFromNow.setMonth(today.getMonth() + 1);
+            const monthTime = monthFromNow.getTime();
+            
+            tabButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const tabType = btn.getAttribute('data-tab');
+                    const isActive = btn.classList.contains('bg-white');
+                    
+                    // If clicking active button, deactivate it and show all
+                    if (isActive) {
+                        btn.classList.remove('bg-white', 'shadow-sm', 'border', 'border-gray-200');
+                        btn.classList.add('text-gray-600');
+                        
+                        carousel.style.opacity = '0.5';
+                        setTimeout(() => {
+                            const allCarouselCards = Array.from(carousel.querySelectorAll('.flex-shrink-0'));
+                            allCarouselCards.forEach(card => {
+                                card.style.display = 'block';
+                            });
+                            carousel.style.opacity = '1';
+                            carousel.scrollLeft = 0;
+                        }, 300);
+                        return;
+                    }
+                    
+                    // Update active tab styling
+                    tabButtons.forEach(b => {
+                        b.classList.remove('bg-white', 'shadow-sm', 'border', 'border-gray-200');
+                        b.classList.add('text-gray-600');
+                    });
+                    btn.classList.add('bg-white', 'shadow-sm', 'border', 'border-gray-200');
+                    btn.classList.remove('text-gray-600');
+                    
+                    carousel.style.opacity = '0.5';
+                    setTimeout(() => {
+                        const allCarouselCards = Array.from(carousel.querySelectorAll('.flex-shrink-0'));
+                        
+                        // Filter cards based on tab selection
+                        allCarouselCards.forEach(card => {
+                            const dateEl = card.querySelector('[data-date]');
+                            if (dateEl) {
+                                const dateStr = dateEl.getAttribute('data-date');
+                                const eventDate = parseDate(dateStr);
+                                
+                                if (eventDate) {
+                                    const eventTime = eventDate.getTime();
+                                    let shouldShow = false;
+                                    
+                                    if (tabType === 'heute') {
+                                        shouldShow = eventDate.toDateString() === today.toDateString();
+                                    } else if (tabType === 'week') {
+                                        shouldShow = eventTime >= todayTime && eventTime <= weekTime;
+                                    } else if (tabType === 'month') {
+                                        shouldShow = eventTime >= todayTime && eventTime <= monthTime;
+                                    }
+                                    
+                                    card.style.display = shouldShow ? 'block' : 'none';
+                                }
+                            }
+                        });
+                        
+                        carousel.style.opacity = '1';
+                        carousel.scrollLeft = 0;
+                    }, 300);
+                });
+            });
+        }
+
+        function initializeCustomDropdowns() {
+            // Month dropdown
+            const monthBtn = document.getElementById('month-dropdown-btn');
+            const monthMenu = document.getElementById('month-dropdown-menu');
+            const monthSelectedText = document.getElementById('month-selected-text');
+            const monthOptions = monthMenu.querySelectorAll('[data-month-value]');
+            let selectedMonthValue = '';
+
+            monthBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                monthMenu.classList.toggle('hidden');
+                yearMenu.classList.add('hidden');
+                const svg = monthBtn.querySelector('svg');
+                svg.style.transform = monthMenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+
+            monthOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectedMonthValue = option.getAttribute('data-month-value');
+                    monthSelectedText.textContent = option.textContent;
+                    monthMenu.classList.add('hidden');
+                    const svg = monthBtn.querySelector('svg');
+                    svg.style.transform = 'rotate(0deg)';
+                    
+                    // Trigger filter change
+                    applyCustomFilters();
+                });
+            });
+
+            // Year dropdown
+            const yearBtn = document.getElementById('year-dropdown-btn');
+            const yearMenu = document.getElementById('year-dropdown-menu');
+            const yearSelectedText = document.getElementById('year-selected-text');
+            const yearOptions = yearMenu.querySelectorAll('[data-year-value]');
+            let selectedYearValue = '';
+
+            yearBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                yearMenu.classList.toggle('hidden');
+                monthMenu.classList.add('hidden');
+                const svg = yearBtn.querySelector('svg');
+                svg.style.transform = yearMenu.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            });
+
+            yearOptions.forEach(option => {
+                option.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    selectedYearValue = option.getAttribute('data-year-value');
+                    yearSelectedText.textContent = option.textContent;
+                    yearMenu.classList.add('hidden');
+                    const svg = yearBtn.querySelector('svg');
+                    svg.style.transform = 'rotate(0deg)';
+                    
+                    // Trigger filter change
+                    applyCustomFilters();
+                });
+            });
+
+            // Close dropdowns when clicking outside
+            document.addEventListener('click', () => {
+                monthMenu.classList.add('hidden');
+                yearMenu.classList.add('hidden');
+                const monthSvg = monthBtn.querySelector('svg');
+                const yearSvg = yearBtn.querySelector('svg');
+                monthSvg.style.transform = 'rotate(0deg)';
+                yearSvg.style.transform = 'rotate(0deg)';
+            });
+
+            // Function to apply filters
+            function applyCustomFilters() {
+                const eventGrid = document.getElementById('event-grid');
+                const eventCards = eventGrid.querySelectorAll('.event-card');
+                
+                eventGrid.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    eventCards.forEach(card => {
+                        const dateAttr = card.getAttribute('data-event-date');
+                        const match = dateAttr ? dateAttr.match(/(\d{2})\.(\d{2})\.(\d{4})/) : null;
+                        
+                        if (match) {
+                            const [_, day, month, year] = match;
+                            let shouldShow = true;
+                            
+                            if (selectedMonthValue && month !== selectedMonthValue.padStart(2, '0')) {
+                                shouldShow = false;
+                            }
+                            
+                            if (selectedYearValue && year !== selectedYearValue) {
+                                shouldShow = false;
+                            }
+                            
+                            if (shouldShow && !card.classList.contains('hidden')) {
+                                card.style.display = 'block';
+                            } else if (shouldShow) {
+                                card.style.display = 'none';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    eventGrid.style.opacity = '1';
+                    updateMehrButton();
+                }, 400);
+            }
+
+            // Expose reset function for refresh button
+            window.resetCustomDropdowns = function() {
+                selectedMonthValue = '';
+                selectedYearValue = '';
+                monthSelectedText.textContent = 'Monat';
+                yearSelectedText.textContent = 'Jahr';
+            };
+        }
+
+        function initializeFilters() {
+            const monthFilter = document.getElementById('month-filter');
+            const yearFilter = document.getElementById('year-filter');
+            const eventGrid = document.getElementById('event-grid');
+            const refreshBtn = document.getElementById('refresh-events');
+
+            function applyFilters() {
+                const selectedMonth = monthFilter.value;
+                const selectedYear = yearFilter.value;
+                const eventCards = eventGrid.querySelectorAll('.event-card');
+                
+                eventGrid.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    eventCards.forEach(card => {
+                        const dateAttr = card.getAttribute('data-event-date');
+                        const match = dateAttr ? dateAttr.match(/(\d{2})\.(\d{2})\.(\d{4})/) : null;
+                        
+                        if (match) {
+                            const [_, day, month, year] = match;
+                            let shouldShow = true;
+                            
+                            if (selectedMonth && month !== selectedMonth.padStart(2, '0')) {
+                                shouldShow = false;
+                            }
+                            
+                            if (selectedYear && year !== selectedYear) {
+                                shouldShow = false;
+                            }
+                            
+                            if (shouldShow && !card.classList.contains('hidden')) {
+                                card.style.display = 'block';
+                            } else if (shouldShow) {
+                                card.style.display = 'none';
+                            } else {
+                                card.style.display = 'none';
+                            }
+                        }
+                    });
+                    
+                    eventGrid.style.opacity = '1';
+                    updateMehrButton();
+                }, 400);
+            }
+
+            monthFilter.addEventListener('change', applyFilters);
+            yearFilter.addEventListener('change', applyFilters);
+
+            refreshBtn.addEventListener('click', () => {
+                const icon = refreshBtn.querySelector('svg');
+                icon.style.transform = 'rotate(360deg)';
+                eventGrid.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    icon.style.transform = 'rotate(0deg)';
+                    eventGrid.style.opacity = '1';
+                    
+                    // Reset custom dropdowns
+                    if (window.resetCustomDropdowns) {
+                        window.resetCustomDropdowns();
+                    }
+                    
+                    // Reset old filters (if they exist)
+                    if (monthFilter) monthFilter.value = '';
+                    if (yearFilter) yearFilter.value = '';
+                    
+                    const eventCards = eventGrid.querySelectorAll('.event-card');
+                    eventCards.forEach(card => {
+                        if (card.classList.contains('hidden')) {
+                            card.style.display = 'none';
+                        } else {
+                            card.style.display = 'block';
+                        }
+                    });
+                    updateMehrButton();
+                }, 500);
+            });
+        }
+
+        function initializeMehrButton() {
+            const mehrBtn = document.getElementById('mehr-btn');
+            const mehrContainer = document.getElementById('mehr-container');
+            const eventGrid = document.getElementById('event-grid');
+            
+            window.updateMehrButton = function() {
+                const eventCards = eventGrid.querySelectorAll('.event-card');
+                const hiddenCards = Array.from(eventCards).filter(card => 
+                    card.classList.contains('hidden') && card.style.display !== 'block'
+                );
+                
+                if (hiddenCards.length > 0) {
+                    mehrContainer.style.display = 'block';
+                } else {
+                    mehrContainer.style.display = 'none';
+                }
+            }
+            
+            mehrBtn.addEventListener('click', () => {
+                eventGrid.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    const eventCards = eventGrid.querySelectorAll('.event-card');
+                    eventCards.forEach(card => {
+                        if (card.classList.contains('hidden')) {
+                            card.classList.remove('hidden');
+                            card.style.display = 'block';
+                        }
+                    });
+                    eventGrid.style.opacity = '1';
+                    mehrContainer.style.display = 'none';
+                }, 300);
+            });
+            
+            updateMehrButton();
+        }
+    </script>
+
+</body>
+</html>
+

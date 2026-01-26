@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Einstellungen - FLINTA* Circle</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"DM Sans"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background: linear-gradient(to bottom, #F9E9E1 0%, #E2D8E0 100%); }
+        .bg-brand-purple { background-color: #AC94B8; }
+        
+        /* Toggle Switch Styles */
+        .toggle-checkbox:checked {
+            background-color: #3A2B2E;
+        }
+        .toggle-checkbox {
+            appearance: none;
+            width: 3rem;
+            height: 1.5rem;
+            background-color: #D1D5DB;
+            border-radius: 9999px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .toggle-checkbox::after {
+            content: '';
+            position: absolute;
+            top: 0.125rem;
+            left: 0.125rem;
+            width: 1.25rem;
+            height: 1.25rem;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s;
+        }
+        .toggle-checkbox:checked::after {
+            transform: translateX(1.5rem);
+        }
+        
+        button {
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        button:hover:not(.delete-btn) {
+            background-color: #6750A4 !important;
+            color: #FCFAF9 !important;
+        }
+        
+        .delete-btn:hover {
+            background-color: #DC2626 !important;
+            color: #FCFAF9 !important;
+        }
+    </style>
+</head>
+<body class="font-sans text-gray-800">
+
+    <div id="header-placeholder" class="sticky top-0 z-50"></div>
+
+    <main class="max-w-3xl mx-auto px-6 py-12 mt-28">
+        
+        <h1 class="text-3xl font-bold mb-8" style="color: #7C5D8E;">Einstellungen</h1>
+
+        <!-- Settings Section -->
+        <section class="bg-white rounded-3xl p-8 mb-6 shadow-sm">
+            <h2 class="text-xl font-semibold mb-6" style="color: #7C5D8E;">Einstellungen</h2>
+            
+            <!-- Notifications Toggle -->
+            <div class="flex items-center justify-between py-4 border-b border-gray-100">
+                <div>
+                    <h3 class="font-semibold text-gray-800">Benachrichtigungen</h3>
+                    <p class="text-sm text-gray-500">E-Mail Benachrichtigungen aktivieren</p>
+                </div>
+                <input type="checkbox" id="notifications-toggle" class="toggle-checkbox" checked>
+            </div>
+            
+            <!-- Dark Mode Toggle -->
+            <div class="flex items-center justify-between py-4 border-b border-gray-100">
+                <div>
+                    <h3 class="font-semibold text-gray-800">Dark Mode</h3>
+                    <p class="text-sm text-gray-500">Dunkles Farbschema verwenden</p>
+                </div>
+                <input type="checkbox" id="darkmode-toggle" class="toggle-checkbox">
+            </div>
+            
+            <!-- Language Selection -->
+            <div class="flex items-center justify-between py-4">
+                <div>
+                    <h3 class="font-semibold text-gray-800">Sprache</h3>
+                    <p class="text-sm text-gray-500">Deutsch</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Account Section -->
+        <section class="bg-white rounded-3xl p-8 shadow-sm">
+            <h2 class="text-xl font-semibold mb-6" style="color: #7C5D8E;">Account</h2>
+            
+            <!-- Change Password Button -->
+            <button id="change-password-btn" class="w-full flex items-center gap-3 bg-gray-50 hover:bg-gray-100 px-6 py-4 rounded-xl mb-3 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+                <span class="font-semibold text-gray-800">Passwort ändern</span>
+            </button>
+            
+            <!-- Logout Button -->
+            <button id="logout-btn" class="w-full flex items-center gap-3 bg-gray-50 hover:bg-gray-100 px-6 py-4 rounded-xl mb-3 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+                <span class="font-semibold text-gray-800">Ausloggen</span>
+            </button>
+            
+            <!-- Delete Account Button -->
+            <button id="delete-account-btn" class="delete-btn w-full flex items-center gap-3 px-6 py-4 rounded-xl transition-colors" style="background-color: #FEE2E2; color: #991B1B;">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                <span class="font-semibold">Account löschen</span>
+            </button>
+        </section>
+
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script>
+        // Load header and footer
+        function loadComponent(id, file) {
+            fetch(file)
+                .then(response => response.text())
+                .then(data => {
+                    const element = document.getElementById(id);
+                    element.innerHTML = data;
+                    element.classList.add('loaded');
+                    
+                    element.querySelectorAll('script').forEach(oldScript => {
+                        const newScript = document.createElement('script');
+                        newScript.textContent = oldScript.textContent;
+                        oldScript.parentNode.replaceChild(newScript, oldScript);
+                    });
+                });
+        }
+
+        loadComponent('header-placeholder', 'header.html');
+        loadComponent('footer-placeholder', 'footer.html');
+
+        // Mock functionality for settings
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Notifications toggle
+            const notificationsToggle = document.getElementById('notifications-toggle');
+            notificationsToggle.addEventListener('change', function() {
+                const status = this.checked ? 'aktiviert' : 'deaktiviert';
+                console.log(`Benachrichtigungen ${status}`);
+                showToast(`Benachrichtigungen ${status}`);
+            });
+
+            // Change password button
+            document.getElementById('change-password-btn').addEventListener('click', function() {
+                const newPassword = prompt('Neues Passwort eingeben:');
+                if (newPassword) {
+                    console.log('Passwort würde geändert werden');
+                    showToast('Passwort erfolgreich geändert');
+                }
+            });
+
+            // Logout button
+            document.getElementById('logout-btn').addEventListener('click', function() {
+                if (confirm('Möchtest du dich wirklich ausloggen?')) {
+                    console.log('Benutzer würde ausgeloggt werden');
+                    showToast('Erfolgreich ausgeloggt');
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                }
+            });
+
+            // Delete account button
+            document.getElementById('delete-account-btn').addEventListener('click', function() {
+                if (confirm('⚠️ WARNUNG: Möchtest du deinen Account wirklich dauerhaft löschen? Diese Aktion kann nicht rückgängig gemacht werden!')) {
+                    const confirmation = prompt('Bitte tippe "LÖSCHEN" ein, um zu bestätigen:');
+                    if (confirmation === 'LÖSCHEN') {
+                        console.log('Account würde gelöscht werden');
+                        showToast('Account wird gelöscht...');
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 2000);
+                    } else {
+                        showToast('Account-Löschung abgebrochen');
+                    }
+                }
+            });
+        });
+
+        // Toast notification function
+        function showToast(message) {
+            // Remove existing toast if any
+            const existingToast = document.getElementById('toast');
+            if (existingToast) {
+                existingToast.remove();
+            }
+
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.id = 'toast';
+            toast.className = 'fixed bottom-8 right-8 bg-gray-800 text-white px-6 py-3 rounded-xl shadow-lg z-50 transform transition-all duration-300';
+            toast.style.transform = 'translateY(100px)';
+            toast.textContent = message;
+            
+            document.body.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.style.transform = 'translateY(0)';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                toast.style.transform = 'translateY(100px)';
+                setTimeout(() => {
+                    toast.remove();
+                }, 300);
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
