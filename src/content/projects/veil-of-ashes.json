@@ -1,0 +1,17 @@
+{
+  "title": "Veil of Ashes",
+  "slug": "veil-of-ashes",
+  "type": "Gameplay programming internship",
+  "status": "Internship",
+  "year": 2025,
+  "summary": "Five-month gameplay programming internship on an unreleased UE5 real-time tactics game, with GAS-heavy multiplayer work on sectors, unit delivery, replication, and Steam setup.",
+  "role": "Gameplay programmer intern",
+  "tags": ["Unreal Engine 5", "Blueprints", "GAS", "Multiplayer", "Gameplay programming", "SteamPipe"],
+  "cover": "/assets/veil-of-ashes/presentation/page-01-image-01-2666x1499.jpg",
+  "links": [
+    { "label": "Steam", "href": "https://store.steampowered.com/app/3511540/Veil_of_Ashes/" }
+  ],
+  "featured": true,
+  "caseStudy": true,
+  "order": 1
+}

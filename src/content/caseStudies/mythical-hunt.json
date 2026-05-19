@@ -1,0 +1,75 @@
+{
+  "project": "mythical-hunt",
+  "eyebrow": "Unreal Engine project",
+  "headline": "Mythical Hunt",
+  "intro": "Mythical Hunt demonstrates technical ownership across gameplay systems, UI, multiplayer replication, and team leadership in a 12-week Unreal Engine production.",
+  "facts": [
+    { "label": "Team", "value": "7 people" },
+    { "label": "Duration", "value": "12 weeks" },
+    { "label": "Engine", "value": "Unreal Engine 5.3" },
+    { "label": "Role", "value": "Lead programmer" }
+  ],
+  "hero": {
+    "src": "/assets/hunt/gameplay.jpg",
+    "alt": "Two characters approaching a guarded city gate in Mythical Hunt",
+    "type": "image",
+    "caption": "Co-op tactical gameplay with character switching and enemy encounters."
+  },
+  "timeline": [
+    {
+      "title": "Character ability foundation",
+      "phase": "Gameplay architecture",
+      "shortText": "Implemented 16 character abilities using Unreal's Gameplay Ability System, then refined casting and targeting from playtest feedback.",
+      "media": {
+        "src": "/assets/hunt/targeting.mp4",
+        "alt": "Ability targeting demonstration in a debugging level",
+        "type": "video",
+        "caption": "Ability targeting, activation, and feedback in a test level."
+      },
+      "annotations": [
+        {
+          "x": 44,
+          "y": 48,
+          "label": "Targeting",
+          "detail": "Ability previews needed to stay readable during fast character switching."
+        },
+        {
+          "x": 63,
+          "y": 62,
+          "label": "Replication",
+          "detail": "Gameplay-relevant actions were routed through server-authoritative RPCs."
+        }
+      ],
+      "outcome": "All character abilities were implemented in time and gained quick-cast improvements after testing."
+    },
+    {
+      "title": "Steam co-op multiplayer",
+      "phase": "Networking",
+      "shortText": "Built a listen-server multiplayer setup using Steamworks and kept movement, abilities, and animation state synchronized.",
+      "media": {
+        "src": "/assets/hunt/multiplayer.mp4",
+        "alt": "Network replication test for Mythical Hunt multiplayer",
+        "type": "video",
+        "caption": "A replication test showing multiplayer state updating across clients."
+      },
+      "annotations": [
+        {
+          "x": 32,
+          "y": 52,
+          "label": "Client view",
+          "detail": "The local player starts movement immediately for responsiveness."
+        },
+        {
+          "x": 70,
+          "y": 47,
+          "label": "Authority",
+          "detail": "The server validates important gameplay state to reduce desync."
+        }
+      ],
+      "outcome": "The prototype supported accessible online co-op without a dedicated server requirement."
+    }
+  ],
+  "closing": [
+    "The strongest part of this project is not only the feature list, but the amount of unfamiliar engine surface that had to be learned, debugged, and made production-ready under a short deadline."
+  ]
+}

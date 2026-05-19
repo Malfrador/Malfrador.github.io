@@ -1,0 +1,19 @@
+{
+  "title": "MCCinema",
+  "slug": "mccinema",
+  "type": "Minecraft video playback plugin",
+  "status": "Released",
+  "year": 2026,
+  "summary": "A Paper plugin that plays video and synchronized audio inside Minecraft using maps, with dithering and bandwidth-focused rendering.",
+  "role": "Developer",
+  "tags": ["Java", "Paper", "Minecraft", "FFmpeg", "Dithering", "Optimization"],
+  "cover": "/assets/mccinema/gallery-03.png",
+  "links": [
+    { "label": "Modrinth", "href": "https://modrinth.com/plugin/mccinema" },
+    { "label": "GitHub", "href": "https://github.com/Malfrador/MakiScreen/" }
+  ],
+  "featured": false,
+  "caseStudy": true,
+  "order": 25,
+  "draft": false
+}

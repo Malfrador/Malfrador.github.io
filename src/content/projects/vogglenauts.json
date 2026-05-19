@@ -1,0 +1,16 @@
+{
+  "title": "Vogglenauts",
+  "slug": "vogglenauts",
+  "type": "Multiplayer co-op cozy game",
+  "status": "In development",
+  "year": 2025,
+  "summary": "A cozy online co-op game about cleaning up an island world together, built in Unreal with AngelScript gameplay code and a custom team workflow.",
+  "role": "Lead programmer",
+  "tags": ["Unreal Engine", "AngelScript", "Co-op", "Multiplayer", "Gameplay systems", "Tools"],
+  "cover": "/assets/vogglenauts/hub.jpg",
+  "links": [],
+  "featured": true,
+  "caseStudy": true,
+  "order": 3,
+  "draft": false
+}

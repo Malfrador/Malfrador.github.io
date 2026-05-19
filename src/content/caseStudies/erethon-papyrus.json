@@ -1,0 +1,320 @@
+{
+  "project": "erethon-papyrus",
+  "eyebrow": "Configurable game systems",
+  "headline": "Erethon / Papyrus",
+  "intro": "The main technical work here is QuestsXL, a configurable scripting and content-authoring system for quests, events, world interactions, and instanced world state. Papyrus is the custom server foundation underneath it, including RPG systems and Paper fork work.",
+  "facts": [
+    { "label": "Timeframe", "value": "2021-present" },
+    { "label": "Team", "value": "Around 10 volunteers" },
+    { "label": "Stack", "value": "Java, Paper, custom plugins" },
+    { "label": "Role", "value": "Developer, game designer, and project lead" }
+  ],
+  "hero": {
+    "src": "/assets/qxl/landscape.jpg",
+    "alt": "Large Minecraft city landscape used in Erethon",
+    "type": "image",
+    "caption": "A hub city in the persistent RPG world."
+  },
+  "timeline": [
+    {
+      "title": "Designer-facing scripting",
+      "phase": "Content systems",
+      "shortText": "QuestsXL grew into a composable scripting system for quests and world events. Designers build content from actions, conditions, and objectives, with stages, callbacks, macros, runtime variables, math expressions, branching, and reusable snippets.",
+      "media": {
+        "src": "/assets/qxl/example.png",
+        "alt": "YAML quest definition for QuestsXL",
+        "type": "image",
+        "caption": "A compact YAML quest definition."
+      },
+      "annotations": [
+        {
+          "x": 28,
+          "y": 90,
+          "label": "Objectives",
+          "placement": "left",
+          "detail": "Objectives define player or event goals and can run callbacks when completed."
+        },
+        {
+          "x": 50,
+          "y": 55,
+          "label": "Actions",
+          "detail": "Actions handle messages, rewards, spawning, dialogue, IBC changes, stage jumps, and more."
+        },
+        {
+          "x": 45,
+          "y": 15,
+          "label": "Conditions",
+          "placement": "right",
+          "detail": "Conditions gate quest starts, actions, objectives, branches, and event activation."
+        }
+      ],
+      "outcome": "Quest and event content can be authored, adjusted, and extended through YAML while core behavior stays centralized and maintainable."
+    },
+    {
+      "title": "Events as scripted world systems",
+      "phase": "QXL events",
+      "shortText": "QXL events use the same stage/action/objective model as quests, but are bound to the world instead of one player. They can auto-start from conditions, update while active, track participation, give tiered rewards, chain into other events, and act as building blocks for larger meta-events.",
+      "media": {
+        "src": "/assets/papyrus/event-combat.png",
+        "alt": "Erethon event combat with bomb objective, enemy NPC, and objective tracker",
+        "type": "image",
+        "caption": "A scripted event encounter with combat objectives and world state."
+      },
+      "annotations": [
+        {
+          "x": 83,
+          "y": 46,
+          "label": "Lifecycle",
+          "placement": "left",
+          "detail": "Events move through states like waiting, active, completed, failed, and disabled."
+        },
+        {
+          "x": 43,
+          "y": 49,
+          "label": "Participation",
+          "detail": "Combat progress and objective completion can feed participation and rewards."
+        },
+        {
+          "x": 58,
+          "y": 38,
+          "label": "Orchestration",
+          "placement": "left",
+          "detail": "Actions can start other events or advance stages, making event chains and meta-events possible."
+        }
+      ],
+      "outcome": "Designers can build repeatable world activity without each event needing custom plugin code."
+    },
+    {
+      "title": "World content tools",
+      "phase": "Authoring workflow",
+      "shortText": "QXL also covers the surrounding world-content workflow: world interactions, daily and weekly quest rotations, regions, points of interest, instanced areas, and client-side block-state changes through Instanced Block Collections.",
+      "media": {
+        "src": "/assets/qxl/dialogue.png",
+        "alt": "Erethon dialogue and quest UI",
+        "type": "image",
+        "caption": "QXL content can trigger dialogues, quests, events, world interactions, and staged world-state changes."
+      },
+      "annotations": [
+        {
+          "x": 30,
+          "y": 40,
+          "label": "World interactions",
+          "detail": "Location-based objective holders can start quests, react to blocks, or trigger one-time discoveries."
+        },
+        {
+          "x": 58,
+          "y": 52,
+          "label": "Instancing",
+          "detail": "Regions and IBCs let content show per-player or per-group world states without changing the shared world for everyone."
+        },
+        {
+          "x": 76,
+          "y": 66,
+          "label": "Rotations",
+          "placement": "left",
+          "detail": "Periodic quests support shared daily and weekly quest pools with completion rewards."
+        }
+      ],
+      "outcome": "The tooling is not only for individual quests; it gives designers a broader content-authoring layer for the live world."
+    },
+    {
+      "title": "Reusable content patterns",
+      "phase": "QXL authoring",
+      "shortText": "The scripting layer supports macros, reusable reward snippets, runtime variables, score counters, optional objectives, manual stage progression, and command-triggered objectives. That makes it possible to build more complex content while keeping quest files readable.",
+      "media": {
+        "src": "/assets/qxl/example.png",
+        "alt": "Reusable QuestsXL YAML scripting example",
+        "type": "image",
+        "caption": "Reusable YAML patterns keep complex content maintainable."
+      },
+      "annotations": [
+        {
+          "x": 28,
+          "y": 30,
+          "label": "Macros",
+          "detail": "Common snippets can be defined once and called with parameters."
+        },
+        {
+          "x": 54,
+          "y": 55,
+          "label": "Runtime state",
+          "detail": "Variables and score counters let content react to players, groups, and event state."
+        },
+        {
+          "x": 76,
+          "y": 70,
+          "label": "Branching",
+          "placement": "left",
+          "detail": "Manual stage progression and impossible objectives support branching quest structures."
+        }
+      ],
+      "outcome": "QXL is less a quest plugin and more a small content scripting platform for the server."
+    },
+    {
+      "title": "Papyrus and the Paper fork",
+      "phase": "Server engineering",
+      "shortText": "Papyrus is built on Paper, but maintaining a server fork is its own engineering problem: working with Git patch workflows, reading deobfuscated Minecraft and Paper source, understanding undocumented internals, and keeping custom behavior compatible with upstream changes.",
+      "media": {
+        "src": "/assets/papyrus/spell.png",
+        "alt": "Java code for a Spellbook skill",
+        "type": "image",
+        "caption": "Papyrus and Spellbook required working across custom plugin code, Paper internals, and Minecraft server behavior."
+      },
+      "annotations": [
+        {
+          "x": 22,
+          "y": 32,
+          "label": "Patch workflow",
+          "detail": "Paper forks are maintained through Git patches, not just normal plugin development."
+        },
+        {
+          "x": 52,
+          "y": 50,
+          "label": "Internals",
+          "detail": "Changes often require reading deobfuscated Minecraft code and undocumented server behavior."
+        },
+        {
+          "x": 74,
+          "y": 68,
+          "label": "Compatibility",
+          "placement": "left",
+          "detail": "Custom behavior has to survive upstream Paper and Minecraft changes."
+        }
+      ],
+      "outcome": "This work built a better understanding of large unfamiliar codebases, Git patch maintenance, and server internals."
+    },
+    {
+      "title": "NPC load testing",
+      "phase": "Server performance",
+      "shortText": "Papyrus also had to handle large numbers of custom NPCs without eating the server tick budget. The test here shows roughly 300 attacking NPCs while the server stayed around 3ms per tick in the measured window.",
+      "media": {
+        "src": "/assets/papyrus/npc-performance.png",
+        "alt": "Minecraft performance test with roughly 300 attacking NPCs and server tick timing overlay",
+        "type": "image",
+        "caption": "NPC combat load test: around 300 attacking NPCs at roughly 3ms per tick."
+      },
+      "annotations": [
+        {
+          "x": 20,
+          "y": 82,
+          "label": "Tick budget",
+          "detail": "The server timing overlay shows the measured entity load stayed low enough for gameplay."
+        },
+        {
+          "x": 55,
+          "y": 48,
+          "label": "NPC count",
+          "detail": "The scene contains hundreds of attacking NPCs, which is a useful stress case for combat AI."
+        }
+      ],
+      "outcome": "This kind of test is important because RPG systems only matter if the server can still run them under real encounter load."
+    },
+    {
+      "title": "Combat and skill scheduling",
+      "phase": "Runtime systems",
+      "shortText": "Spellbook schedules skill activations across server ticks to keep combat responsive while distributing load across many entities.",
+      "media": {
+        "src": "/assets/papyrus/graph.png",
+        "alt": "Graph representation of the Spellbook spell queue",
+        "type": "image",
+        "caption": "The Spellbook queue smooths skill execution under load."
+      },
+      "annotations": [
+        {
+          "x": 42,
+          "y": 40,
+          "label": "Queue",
+          "detail": "Skill activations are ordered instead of all competing inside the same tick."
+        },
+        {
+          "x": 65,
+          "y": 62,
+          "label": "Load",
+          "detail": "Work can be distributed while preserving fair activation order."
+        }
+      ],
+      "outcome": "Combat remains understandable and fair even when many players and NPCs use abilities."
+    },
+    {
+      "title": "Item stats and RPG data",
+      "phase": "RPG systems",
+      "shortText": "Items, stats, rarity, levels, and generated modifiers are part of the configurable RPG layer. The goal is the same as with quests and events: keep the game rules data-driven so balance changes do not require rewriting core code.",
+      "media": {
+        "src": "/assets/papyrus/basic_item.png",
+        "alt": "Minecraft item tooltip showing an RPG sword with level, rarity, and generated stats",
+        "type": "image",
+        "caption": "A basic generated item tooltip with RPG stats."
+      },
+      "annotations": [
+        {
+          "x": 30,
+          "y": 23,
+          "label": "Item identity",
+          "detail": "Level, equipment type, and rarity give designers useful balance axes."
+        },
+        {
+          "x": 38,
+          "y": 65,
+          "label": "Generated stats",
+          "detail": "The item system can attach multiple stat modifiers without hardcoding each item."
+        }
+      ],
+      "outcome": "The item layer gives the RPG economy and progression systems more room to be tuned through data."
+    },
+    {
+      "title": "Combat and economy design",
+      "phase": "Game design",
+      "shortText": "Designed parts of the combat model, faction economy, progression structure, and PvP territory loop so the RPG systems had clear player-facing goals.",
+      "media": {
+        "src": "/assets/qxl/minimap.png",
+        "alt": "Erethon minimap showing territory and world context",
+        "type": "image",
+        "caption": "World and territory context for faction gameplay."
+      },
+      "annotations": [
+        {
+          "x": 30,
+          "y": 38,
+          "label": "Territory",
+          "detail": "Faction control and conflict needed readable strategic goals."
+        },
+        {
+          "x": 62,
+          "y": 58,
+          "label": "Player routes",
+          "detail": "The world layout had to support travel, conflict, and points of interest."
+        }
+      ],
+      "outcome": "The design work connected custom systems to concrete reasons for players to build, fight, trade, and cooperate."
+    },
+    {
+      "title": "Configurable world rules",
+      "phase": "Game design systems",
+      "shortText": "Mobs, faction buildings, economy outputs, events, and balance values are exposed through configuration so designers can iterate on the world without rebuilding the server.",
+      "media": {
+        "src": "/assets/qxl/faction_building.png",
+        "alt": "Faction building configuration",
+        "type": "image",
+        "caption": "A building configuration that produces grain and affects nearby farmland."
+      },
+      "annotations": [
+        {
+          "x": 30,
+          "y": 32,
+          "label": "Inputs",
+          "detail": "Requirements encode balancing constraints around player-built structures."
+        },
+        {
+          "x": 64,
+          "y": 62,
+          "label": "Outputs",
+          "detail": "Resource production and services can be tuned through data."
+        }
+      ],
+      "outcome": "Designers can tune economy and world behavior through data while players still get the freedom of sandbox construction."
+    }
+  ],
+  "closing": [
+    "The important part is the authoring model: much of Erethon is built as configurable systems first, so content can be changed by designers instead of requiring developer intervention for every quest, mob, event, interaction, or economy tweak."
+  ]
+}

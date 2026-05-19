@@ -1,0 +1,162 @@
+---
+import TagList from './TagList.astro';
+
+interface Project {
+  title: string;
+  slug: string;
+  type: string;
+  status: string;
+  year: number;
+  ongoing?: boolean;
+  summary: string;
+  role: string;
+  tags: string[];
+  cover: string;
+  caseStudy: boolean;
+  draft?: boolean;
+}
+
+interface Props {
+  project: Project;
+  compact?: boolean;
+}
+
+const { project, compact = false } = Astro.props;
+const href = project.caseStudy ? `/projects/${project.slug}/` : undefined;
+const yearLabel = project.ongoing ? `${project.year}-${new Date().getFullYear()}` : String(project.year);
+---
+
+<article class:list={['project-card', { compact, draft: project.draft }]}>
+  {href ? (
+    <a class="cover-link" href={href} aria-label={`Open ${project.title} case study`}>
+      <img src={project.cover} alt="" loading="lazy" />
+      <div class="card-meta">
+        <span>{project.type}</span>
+        <span>{yearLabel}</span>
+      </div>
+    </a>
+  ) : (
+    <div class="cover-link">
+      <img src={project.cover} alt="" loading="lazy" />
+      <div class="card-meta">
+        <span>{project.type}</span>
+        <span>{yearLabel}</span>
+      </div>
+    </div>
+  )}
+  <div class="card-body">
+    <div class="title-row">
+      <h3>{href ? <a href={href}>{project.title}</a> : project.title}</h3>
+      {project.draft && <span class="draft-badge">Draft</span>}
+    </div>
+    <p>{project.summary}</p>
+    <div class="role">
+      <span>Role</span>
+      <strong>{project.role}</strong>
+    </div>
+    <TagList tags={project.tags.slice(0, compact ? 4 : 5)} />
+  </div>
+</article>
+
+<style>
+  .project-card {
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+  }
+
+  .cover-link {
+    position: relative;
+    display: block;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: #101418;
+    text-decoration: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 220ms ease;
+  }
+
+  .project-card:hover img {
+    transform: scale(1.03);
+  }
+
+  .card-meta {
+    position: absolute;
+    inset: auto 0 0 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 42px 12px 12px;
+    background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.78) 100%);
+    color: var(--text);
+    font-size: 0.78rem;
+    font-weight: 850;
+    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.8);
+  }
+
+  .card-body {
+    display: grid;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  h3 {
+    margin: 0;
+    font-size: clamp(1.2rem, 2vw, 1.7rem);
+    letter-spacing: 0;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  h3 a:hover {
+    color: var(--accent);
+  }
+
+  p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  .role {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    border-top: 1px solid var(--line);
+    padding-top: 12px;
+    color: var(--subtle);
+    font-size: 0.86rem;
+  }
+
+  .role strong {
+    color: var(--text);
+  }
+
+  .draft-badge {
+    border: 1px solid color-mix(in srgb, var(--accent-2) 65%, var(--line));
+    border-radius: 999px;
+    color: var(--accent-2);
+    padding: 3px 8px;
+    font-size: 0.72rem;
+    font-weight: 850;
+  }
+
+  .compact .card-body {
+    gap: 12px;
+  }
+</style>

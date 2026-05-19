@@ -1,0 +1,132 @@
+{
+  "project": "mccinema",
+  "eyebrow": "Minecraft media playback",
+  "headline": "MCCinema",
+  "intro": "MCCinema is a Paper plugin that plays videos inside Minecraft without client-side mods. It turns video frames into map displays, handles synchronized audio through generated resource packs, and tries to keep bandwidth low enough that large screens are actually usable on real servers.",
+  "facts": [
+    { "label": "Platform", "value": "Paper", "group": "Project" },
+    { "label": "Minecraft", "value": "1.21.x / 26.1.x", "group": "Project" },
+    { "label": "Role", "value": "Developer", "group": "Role" },
+    { "label": "Language", "value": "Java", "group": "Tech" },
+    { "label": "Media", "value": "MP4, MKV, AVI, WEBM, YouTube download", "group": "Tech" },
+    { "label": "Quality", "value": "Floyd-Steinberg, Stucki, Atkinson dithering", "group": "Tech" },
+    { "label": "Bandwidth", "value": "Selective updates, downsampling, dirty regions", "group": "Tech" }
+  ],
+  "hero": {
+    "src": "/assets/mccinema/gallery-03.png",
+    "alt": "Minecraft world showing a large video screen with playback and debug information",
+    "type": "image",
+    "caption": "Large in-game video screen with live playback metrics."
+  },
+  "timeline": [
+    {
+      "title": "Video playback on Minecraft maps",
+      "phase": "Rendering",
+      "shortText": "The plugin plays video by converting frames into Minecraft map updates. That sounds simple until the screen gets large: a 17 by 7 block display can be 2176 by 896 pixels, and every frame has to fit through Minecraft's packet and map-color constraints.",
+      "media": {
+        "src": "/assets/mccinema/gallery-03.png",
+        "alt": "Large Minecraft map screen playing a video with playback status and performance overlay",
+        "type": "image",
+        "caption": "A very large screen playing video at 24 FPS."
+      },
+      "annotations": [
+        {
+          "x": 52,
+          "y": 55,
+          "label": "Map screen",
+          "detail": "Frames are rendered into map tiles, so screen size directly affects bandwidth and CPU cost."
+        },
+        {
+          "x": 22,
+          "y": 76,
+          "label": "Debug overlay",
+          "detail": "Live metrics make it easier to tune playback quality, packet rate, and bandwidth."
+        }
+      ],
+      "outcome": "The interesting part is making Minecraft behave enough like a video player without requiring client mods."
+    },
+    {
+      "title": "Dithering for Minecraft colors",
+      "phase": "Image quality",
+      "shortText": "Minecraft maps have a limited color palette, so naive conversion looks rough. MCCinema supports Floyd-Steinberg, Stucki, and Atkinson dithering, plus temporal noise reduction, to keep motion and gradients readable without destroying bandwidth.",
+      "media": {
+        "src": "/assets/mccinema/gallery-02.png",
+        "alt": "Minecraft map screen showing a dithered video frame",
+        "type": "image",
+        "caption": "The screen output relies on dithering because map colors are limited."
+      },
+      "annotations": [
+        {
+          "x": 55,
+          "y": 42,
+          "label": "Palette limits",
+          "detail": "Every frame has to be reduced to Minecraft's map colors."
+        },
+        {
+          "x": 72,
+          "y": 68,
+          "label": "Temporal stability",
+          "detail": "Noise reduction matters because dithering artifacts become much more obvious in motion.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "The image pipeline is a quality tradeoff between color accuracy, stable motion, CPU time, and packet size."
+    },
+    {
+      "title": "Bandwidth as the main constraint",
+      "phase": "Optimization",
+      "shortText": "Minecraft will happily make this kind of project unusable if every pixel is sent every frame. MCCinema uses selective updating, downsampling, dirty-region detection, packet bundling, and quality presets so static or low-motion videos send much less data than noisy full-motion content.",
+      "media": {
+        "src": "/assets/mccinema/gallery-04.png",
+        "alt": "Minecraft video playback test showing low bandwidth on a simple high-contrast video",
+        "type": "image",
+        "caption": "Bandwidth varies heavily with screen size and how much the video changes."
+      },
+      "annotations": [
+        {
+          "x": 37,
+          "y": 48,
+          "label": "Dirty regions",
+          "detail": "Only changed areas need to be sent, which makes low-motion videos far cheaper."
+        },
+        {
+          "x": 74,
+          "y": 85,
+          "label": "Bandwidth readout",
+          "detail": "The plugin exposes metrics so quality settings can be tuned per screen and video.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "On Modrinth I list examples ranging from about 400 KB/s for simple high-contrast video to about 8 MB/s for a very large, complex screen."
+    },
+    {
+      "title": "Audio and playback controls",
+      "phase": "Playback system",
+      "shortText": "Minecraft does not make synchronized custom audio straightforward. MCCinema generates and hosts resource packs for audio playback, slices audio into chunks to support pause/resume behavior, and exposes normal playback controls such as pause, resume, seek, and skip.",
+      "media": {
+        "src": "/assets/mccinema/gallery-01.png",
+        "alt": "Minecraft video screen with playback bar at the top",
+        "type": "image",
+        "caption": "Playback state is controlled server-side while clients see synchronized video and audio."
+      },
+      "annotations": [
+        {
+          "x": 50,
+          "y": 6,
+          "label": "Playback state",
+          "detail": "The plugin tracks video progress so controls like pause, resume, seek, and skip work."
+        },
+        {
+          "x": 18,
+          "y": 40,
+          "label": "Audio workaround",
+          "detail": "Audio is split into resource-pack chunks to work around Minecraft's audio limitations."
+        }
+      ],
+      "outcome": "The feature is not just frame conversion; it also has to feel like a usable media player."
+    }
+  ],
+  "closing": [
+    "MCCinema is a good small technical project because the constraints are awkward in a useful way: limited colors, expensive packets, map tiling, audio workarounds, and a real need to expose tuning controls instead of pretending one quality setting fits every video."
+  ]
+}

@@ -1,0 +1,63 @@
+---
+interface MediaItem {
+  src: string;
+  alt: string;
+  type?: 'image' | 'video';
+  caption?: string;
+}
+
+interface Props {
+  items: MediaItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="media-strip">
+  {items.map((item) => (
+    <figure>
+      {item.type === 'video' ? (
+        <video controls preload="metadata" playsinline>
+          <source src={item.src} type="video/mp4" />
+        </video>
+      ) : (
+        <img src={item.src} alt={item.alt} loading="lazy" />
+      )}
+      {item.caption && <figcaption>{item.caption}</figcaption>}
+    </figure>
+  ))}
+</div>
+
+<style>
+  .media-strip {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(260px, 1fr);
+    gap: 14px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+    scroll-snap-type: x proximity;
+  }
+
+  figure {
+    min-width: 0;
+    margin: 0;
+    scroll-snap-align: start;
+  }
+
+  img,
+  video {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #080a0c;
+    object-fit: cover;
+  }
+
+  figcaption {
+    margin-top: 8px;
+    color: var(--subtle);
+    font-size: 0.86rem;
+  }
+</style>

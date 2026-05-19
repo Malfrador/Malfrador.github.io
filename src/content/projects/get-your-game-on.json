@@ -1,0 +1,20 @@
+{
+  "title": "Get Your Game On",
+  "slug": "get-your-game-on",
+  "type": "Game-based assessment",
+  "status": "Browser playable",
+  "year": 2023,
+  "summary": "A Godot-based assessment game that turns course suitability into seven interactive tasks with automatic scoring and generated reports.",
+  "role": "Lead programmer",
+  "tags": ["Godot", "C#", "Assessment design", "Visual scripting", "PDF generation"],
+  "cover": "/assets/gygo/cover.png",
+  "links": [
+    { "label": "Play", "href": "https://lab.schuemann.dev" },
+    { "label": "Technical document", "href": "https://gist.github.com/Malfrador/4a895c1dcb58f11b019afed73f639d7b" },
+    { "label": "GitHub", "href": "https://github.com/SporeGames/GetOn" },
+    { "label": "Trailer", "href": "https://youtu.be/1xukADoqLgA" }
+  ],
+  "featured": false,
+  "caseStudy": true,
+  "order": 40
+}

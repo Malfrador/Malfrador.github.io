@@ -1,0 +1,151 @@
+{
+  "project": "veil-of-ashes",
+  "eyebrow": "Gameplay programming internship",
+  "headline": "Veil of Ashes",
+  "intro": "Veil of Ashes is an unreleased UE5 real-time tactics game by Greifenmaer, currently in internal testing. During my five-month internship I worked on gameplay features for the vertical slice, mostly in Blueprints, with some C++. A lot of the work touched Unreal's Gameplay Ability System and multiplayer replication, which made even simple-looking features more involved than normal single-player UE work.",
+  "facts": [
+    { "label": "Studio", "value": "Greifenmaer", "group": "Game" },
+    { "label": "Engine", "value": "Unreal Engine 5", "group": "Game" },
+    { "label": "Status", "value": "Internal testing", "group": "Game" },
+    { "label": "Duration", "value": "5 months", "group": "Internship" },
+    { "label": "Focus", "value": "GAS, gameplay systems, replication", "group": "Internship" },
+    { "label": "Funding", "value": "370k EUR Games BW / MFG", "group": "Context" },
+    { "label": "Steam", "value": "20k+ wishlists", "group": "Context" }
+  ],
+  "hero": {
+    "src": "/assets/veil-of-ashes/presentation/page-01-image-01-2666x1499.jpg",
+    "alt": "Veil of Ashes key art with soldiers and a tank in a battlefield",
+    "type": "image",
+    "caption": "Key art"
+  },
+  "timeline": [
+    {
+      "title": "Working inside an existing UE5 project",
+      "phase": "Vertical slice work",
+      "shortText": "Most of the work happened in Blueprints, with some C++. The project used Unreal's Gameplay Ability System heavily for client-server gameplay flow. GAS is powerful, but not especially friendly to learn from documentation alone, so a lot of the work involved tracing existing abilities, understanding authority boundaries, and testing behavior in multiplayer builds.",
+      "media": {
+        "src": "/assets/veil-of-ashes/presentation/page-04-image-01-1920x1080.jpg",
+        "alt": "In-game Veil of Ashes battlefield screenshot",
+        "type": "image",
+        "caption": "In-game screenshot."
+      },
+      "annotations": [
+        {
+          "x": 20,
+          "y": 39,
+          "label": "Existing systems",
+          "placement": "top",
+          "detail": "A large part of the work was understanding and extending existing gameplay systems."
+        },
+        {
+          "x": 65,
+          "y": 75,
+          "label": "GAS",
+          "placement": "left",
+          "detail": "Gameplay features had to fit the project's GAS-based ability flow instead of bypassing it."
+        }
+      ],
+      "outcome": "The internship was good practice in reading existing game code, making scoped changes, and debugging multiplayer behavior in a larger UE5 project."
+    },
+    {
+      "title": "Sectors instead of isolated control points",
+      "phase": "Gameplay systems",
+      "shortText": "One major task was replacing the old control-point setup with larger sectors. The goal was to support clearer front lines instead of scattered single vehicles moving across the map toward isolated points. Since ownership and score data are gameplay-critical, the sector state had to be server-authoritative and replicated cleanly to clients.",
+      "media": {
+        "src": "/assets/veil-of-ashes/presentation/page-06-image-02-843x775.jpg",
+        "alt": "Veil of Ashes sector and control point UI screenshot",
+        "type": "image",
+        "caption": "Sector/control-point UI (WIP)"
+      },
+      "annotations": [
+        {
+          "x": 38,
+          "y": 17,
+          "label": "Sectors",
+          "placement": "left",
+          "detail": "A sector can contain multiple control points and changes owner based on their state."
+        },
+        {
+          "x": 70,
+          "y": 50,
+          "label": "Replication",
+          "detail": "Sector ownership and score data came from the host/server and had to stay correct on every client."
+        },
+        {
+          "x": 50,
+          "y": 79,
+          "label": "Spawn area",
+          "placement": "right",
+          "detail": "Owned sectors define where units can be requested, instead of only spawning from base areas."
+        }
+      ],
+      "outcome": "The system was implemented in a separate Experience so it could be tested against the old mode without breaking the existing setup, while still using the project's normal replication path."
+    },
+    {
+      "title": "Unit ordering and delivery",
+      "phase": "Feature implementation",
+      "shortText": "The sector work enabled a new unit delivery flow. Instead of spawning units immediately, players build a list of requested units, can still remove them, and then send the order to the server for validation and delivery. This had to preserve responsive client feedback while keeping the actual spawn/delivery logic authoritative.",
+      "media": {
+        "src": "/assets/veil-of-ashes/unit-order.mp4",
+        "alt": "Veil of Ashes unit ordering and delivery clip",
+        "type": "video",
+        "caption": "Unit ordering and delivery flow."
+      },
+      "annotations": [
+        {
+          "x": 75,
+          "y": 85,
+          "label": "Client feedback",
+          "placement": "left",
+          "detail": "The client-side GAS ability gives quick feedback about resources and valid delivery locations."
+        },
+        {
+          "x": 35,
+          "y": 60,
+          "label": "Server authority",
+          "placement": "left",
+          "detail": "The server-side GAS handler validates the order before spawning the delivery actor."
+        },
+        {
+          "x": 80,
+          "y": 15,
+          "label": "Risk",
+          "placement": "right",
+          "detail": "The delivery is represented by an attackable transporter; destroying it cancels the delivery."
+        }
+      ],
+      "outcome": "The feature combined UI, GAS abilities, server validation, replication debugging, VFX, and iteration from PvP playtests."
+    },
+    {
+      "title": "Other gameplay and project tasks",
+      "phase": "Internship scope",
+      "shortText": "Alongside the sector and delivery work, I also implemented or reworked smaller features: camera controls, a cheat menu, destructible objects, vehicle terrain deformation, scoring changes, and some VFX. I also helped with internal tests and their evaluation.",
+      "media": {
+        "src": "/assets/veil-of-ashes/presentation/page-05-image-02-944x448.jpg",
+        "alt": "Veil of Ashes Steam page setup screenshot",
+        "type": "image",
+        "caption": "Steam page/build setup material"
+      },
+      "annotations": [
+        {
+          "x": 25,
+          "y": 25,
+          "label": "Iteration",
+          "placement": "top",
+          "detail": "Biweekly and weekly playtests helped reveal bugs and design issues early."
+        },
+        {
+          "x": 82,
+          "y": 75,
+          "label": "Steam",
+          "placement": "bottom",
+          "detail": "I helped set up the Steam page/build process with SteamPipe and wrote documentation for it."
+        }
+      ],
+      "outcome": "The work was a mix of programming, debugging, internal testing, and the practical setup needed around preparing a Steam game."
+    }
+  ],
+  "closing": [
+    "The main thing I took from the internship was working inside a larger existing UE5 project: understanding unfamiliar systems first, then making changes that fit the GAS architecture and survive multiplayer testing."
+  ]
+}

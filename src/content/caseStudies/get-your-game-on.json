@@ -1,0 +1,82 @@
+{
+  "project": "get-your-game-on",
+  "eyebrow": "Assessment game",
+  "headline": "Get Your Game On",
+  "intro": "Get Your Game On uses game tasks to assess problem solving, design thinking, and programming-adjacent logic without relying on prior syntax knowledge.",
+  "facts": [
+    { "label": "Team", "value": "7 people" },
+    { "label": "Duration", "value": "8 weeks" },
+    { "label": "Engine", "value": "Godot 3" },
+    { "label": "Role", "value": "Lead programmer" }
+  ],
+  "hero": {
+    "src": "/assets/gygo/cover.png",
+    "alt": "Main screen of Get Your Game On",
+    "type": "image",
+    "caption": "The assessment hub with seven tasks."
+  },
+  "timeline": [
+    {
+      "title": "Visual programming task",
+      "phase": "Assessment design",
+      "shortText": "Built a simplified visual scripting task that tests logic and debugging without requiring prior programming syntax.",
+      "media": {
+        "src": "/assets/gygo/programming.png",
+        "alt": "Visual programming task in Get Your Game On",
+        "type": "image",
+        "caption": "Nodes on the left control the playable character on the right."
+      },
+      "annotations": [
+        {
+          "x": 22,
+          "y": 42,
+          "label": "Node palette",
+          "detail": "Players assemble behavior from logic blocks inspired by Blueprint and Scratch."
+        },
+        {
+          "x": 58,
+          "y": 45,
+          "label": "Runtime",
+          "detail": "The created script is evaluated rather than faked with a predefined solution."
+        },
+        {
+          "x": 78,
+          "y": 60,
+          "label": "Scoring",
+          "placement": "left",
+          "detail": "Partial completion can be scored from observed behavior."
+        }
+      ],
+      "outcome": "The task can distinguish logical progress even when the final solution is incomplete."
+    },
+    {
+      "title": "Report generation",
+      "phase": "Output",
+      "shortText": "At the end of the assessment, the game generates a PDF with metrics that can support course suitability decisions.",
+      "media": {
+        "src": "/assets/gygo/pdf.png",
+        "alt": "Generated PDF report for Get Your Game On",
+        "type": "image",
+        "caption": "Generated assessment output."
+      },
+      "annotations": [
+        {
+          "x": 45,
+          "y": 28,
+          "label": "Metrics",
+          "detail": "Structured scores turn game actions into reviewable evidence."
+        },
+        {
+          "x": 55,
+          "y": 70,
+          "label": "Export",
+          "detail": "The output is portable and can be reviewed outside the game."
+        }
+      ],
+      "outcome": "The project connects playful interaction to a practical assessment workflow."
+    }
+  ],
+  "closing": [
+    "This project is useful portfolio evidence because it combines interface design, game logic, scoring, and real-world stakeholder goals."
+  ]
+}

@@ -1,0 +1,37 @@
+---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = 'Malte Schümann - Independent Software Developer',
+  description = 'Portfolio of Malte Schümann, an independent software developer building games, tools, and operational software.'
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#0d1014" />
+    <title>{title}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="page-shell">
+      <SiteHeader />
+      <main id="main">
+        <slot />
+      </main>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+{
+  "title": "Obsession",
+  "slug": "obsession",
+  "type": "Point-and-click adventure",
+  "status": "University project",
+  "year": 2022,
+  "summary": "A Unity adventure game with puzzles, companion hints, and turn-based cover combat with AI enemies.",
+  "role": "Gameplay programmer",
+  "tags": ["Unity", "C#", "AI", "Combat", "Puzzles"],
+  "cover": "/assets/obsession/cover.jpg",
+  "links": [
+    { "label": "Trailer", "href": "https://www.youtube.com/watch?v=_YPeZauz3MQ" }
+  ],
+  "featured": false,
+  "caseStudy": false,
+  "order": 50
+}

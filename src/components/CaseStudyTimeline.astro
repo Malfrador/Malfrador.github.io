@@ -1,0 +1,112 @@
+---
+import AnnotatedMedia from './AnnotatedMedia.astro';
+
+interface TimelineItem {
+  title: string;
+  phase: string;
+  shortText: string;
+  media: {
+    src: string;
+    alt: string;
+    type?: 'image' | 'video';
+    caption?: string;
+  };
+  annotations: {
+    x: number;
+    y: number;
+    label: string;
+    detail: string;
+    href?: string;
+  }[];
+  outcome?: string;
+}
+
+interface Props {
+  items: TimelineItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<ol class="timeline">
+  {items.map((item) => (
+    <li class="timeline-item">
+      <div class="marker" aria-hidden="true"></div>
+      <div class="timeline-copy">
+        <p class="phase">{item.phase}</p>
+        <h2>{item.title}</h2>
+        <p>{item.shortText}</p>
+        {item.outcome && <p class="outcome">{item.outcome}</p>}
+      </div>
+      <AnnotatedMedia media={item.media} annotations={item.annotations} />
+    </li>
+  ))}
+</ol>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: 34px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .timeline-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(220px, 0.78fr) minmax(0, 1.55fr);
+    gap: 28px;
+    border-top: 1px solid var(--line);
+    padding-top: 34px;
+  }
+
+  .marker {
+    position: absolute;
+    left: 0;
+    top: 27px;
+    width: 14px;
+    height: 14px;
+    border-radius: 999px;
+    background: var(--accent);
+    box-shadow: 0 0 0 6px rgba(47, 125, 246, 0.18);
+  }
+
+  .timeline-copy {
+    padding-left: 32px;
+  }
+
+  .phase {
+    margin: 0 0 8px;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: clamp(1.5rem, 3vw, 2.8rem);
+    line-height: 1.04;
+    letter-spacing: 0;
+  }
+
+  p {
+    margin: 14px 0 0;
+    color: var(--muted);
+  }
+
+  .outcome {
+    border-left: 3px solid var(--accent);
+    padding-left: 12px;
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  @media (max-width: 900px) {
+    .timeline-item {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

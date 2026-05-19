@@ -1,0 +1,20 @@
+{
+  "title": "Erethon / Papyrus",
+  "slug": "erethon-papyrus",
+  "type": "Configurable RPG and world systems",
+  "status": "Closed alpha",
+  "year": 2021,
+  "ongoing": true,
+  "summary": "QuestsXL and Papyrus: configurable quest/event scripting, world content tools, RPG systems, and custom server work for a persistent Minecraft MMORPG.",
+  "role": "Developer, game designer, and project lead",
+  "tags": ["Java", "Data-driven systems", "Designer tooling", "Scripting", "Game design", "RPG systems", "Economy design"],
+  "cover": "/assets/qxl/landscape.jpg",
+  "links": [
+    { "label": "GitHub org", "href": "https://github.com/DRE2N" },
+    { "label": "Erethon", "href": "https://erethon.de" },
+    { "label": "QXL docs", "href": "https://erethon.de/docs/questsxl/intro" }
+  ],
+  "featured": true,
+  "caseStudy": true,
+  "order": 4
+}

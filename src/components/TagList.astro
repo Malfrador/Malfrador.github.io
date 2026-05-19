@@ -1,0 +1,32 @@
+---
+interface Props {
+  tags: string[];
+}
+
+const { tags } = Astro.props;
+---
+
+<ul class="tag-list" aria-label="Technologies and focus areas">
+  {tags.map((tag) => <li>{tag}</li>)}
+</ul>
+
+<style>
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    min-height: 28px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 4px 9px;
+    color: var(--muted);
+    font-size: 0.78rem;
+    font-weight: 750;
+  }
+</style>

@@ -1,0 +1,162 @@
+{
+  "project": "vogglenauts",
+  "eyebrow": "Lead programming",
+  "headline": "Vogglenauts",
+  "intro": "Vogglenauts is a cozy online co-op game about exploring a tropical world, cleaning up harmful gloop, and solving small mission-based problems together. My part is lead programming: setting up the gameplay architecture, multiplayer patterns, code workflow, and the systems other team members build content on top of.",
+  "facts": [
+    { "label": "Genre", "value": "Online co-op cozy game", "group": "Project" },
+    { "label": "Loop", "value": "Explore, clean, solve missions", "group": "Project" },
+    { "label": "Role", "value": "Lead programmer", "group": "Role" },
+    { "label": "Team", "value": "Student team project", "group": "Role" },
+    { "label": "Engine", "value": "Unreal Engine", "group": "Tech" },
+    { "label": "Gameplay code", "value": "AngelScript", "group": "Tech" },
+    { "label": "Workflow", "value": "Perforce + UGS", "group": "Tech" }
+  ],
+  "hero": {
+    "src": "/assets/vogglenauts/hub.jpg",
+    "alt": "Vogglenauts beach hub with a player character, boat, volleyball net, and island props",
+    "type": "image",
+    "caption": "In-game hub area."
+  },
+  "timeline": [
+    {
+      "title": "Defining the co-op game loop",
+      "phase": "Game concept",
+      "shortText": "The game is built around low-stress co-op: players travel through a tropical world, clean up gloop, use different tools, and complete mission objectives together. The programming work has to support that style: readable systems, quick iteration, and multiplayer behavior that does not make simple interactions feel brittle.",
+      "media": {
+        "src": "/assets/vogglenauts/hub.jpg",
+        "alt": "Vogglenauts beach hub with shared island activities",
+        "type": "image",
+        "caption": "The hub is a shared space before and between missions."
+      },
+      "annotations": [
+        {
+          "x": 45,
+          "y": 58,
+          "label": "Hub feeling",
+          "detail": "The island is meant to work as a friendly shared space instead of a stressful combat arena.",
+          "placement": "top"
+        },
+        {
+          "x": 68,
+          "y": 42,
+          "label": "Co-op focus",
+          "detail": "The intended play is teamwork, missions, and small shared discoveries.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "The technical direction is shaped around fast iteration for a cooperative, mission-based game rather than one-off prototype code."
+    },
+    {
+      "title": "Gameplay code in AngelScript",
+      "phase": "Programming workflow",
+      "shortText": "Most gameplay code lives in AngelScript. That gives the team quick iteration: scripts hot-reload on save, even while testing in PIE. I documented the code layout and conventions so gameplay programmers can find the right place for player code, tools, components, missions, enemies, props, and UI.",
+      "media": {
+        "src": "/assets/vogglenauts/gameplay.jpg",
+        "alt": "Vogglenauts underwater gameplay with cleanup objectives and player tools",
+        "type": "image",
+        "caption": "Underwater mission gameplay with objectives and tool slots."
+      },
+      "annotations": [
+        {
+          "x": 25,
+          "y": 35,
+          "label": "Hot reload",
+          "detail": "AngelScript keeps gameplay iteration quick because scripts can reload during editor play sessions."
+        },
+        {
+          "x": 72,
+          "y": 62,
+          "label": "Code layout",
+          "detail": "Gameplay code is split into clear folders for player, tool, component, mission, enemy, prop, state, and UI work.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "The project can keep most moment-to-moment gameplay work in script while still allowing C++ and engine changes when needed."
+    },
+    {
+      "title": "Tools, components, and missions",
+      "phase": "Gameplay architecture",
+      "shortText": "The tool system is data-driven: tools inherit from a common base and use primary/secondary action configs. Actors expose capabilities through components such as cleanable, buoyant, pickup, glooped, or objective-related components. Missions then query a world subsystem by GameplayTags instead of scanning the whole level.",
+      "media": {
+        "src": "/assets/vogglenauts/gameplay.jpg",
+        "alt": "Vogglenauts underwater cleanup mission with objectives",
+        "type": "image",
+        "caption": "Mission gameplay built from tools, components, and objectives."
+      },
+      "annotations": [
+        {
+          "x": 35,
+          "y": 55,
+          "label": "Tool base",
+          "detail": "Shared tool behavior lives in one base class, with configs for different actions."
+        },
+        {
+          "x": 68,
+          "y": 40,
+          "label": "Mission registry",
+          "detail": "Components register with a world subsystem so objectives can find relevant actors by tag.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "This keeps new content additive: add a component, objective, or tool type without hardcoding every interaction into one large system."
+    },
+    {
+      "title": "Multiplayer and physics constraints",
+      "phase": "Networking",
+      "shortText": "The game uses a listen-server setup with resimulation-based physics. Client-side actions can predict local feedback, but important gameplay state still goes through server validation and multicast updates. The documentation also calls out performance rules: avoid unnecessary Tick work, cache components, budget resimulation actors, and pool projectiles or VFX.",
+      "media": {
+        "src": "/assets/vogglenauts/gameplay.jpg",
+        "alt": "Vogglenauts multiplayer gameplay mission area",
+        "type": "image",
+        "caption": "Co-op mission spaces need responsive local feedback and server-authoritative state."
+      },
+      "annotations": [
+        {
+          "x": 28,
+          "y": 55,
+          "label": "Prediction",
+          "detail": "Clients can show responsive feedback, then ask the server to validate and replicate the result."
+        },
+        {
+          "x": 72,
+          "y": 56,
+          "label": "Team workflow",
+          "detail": "The technical docs explain conventions so multiple people can work in the same codebase.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "The multiplayer work is less about one flashy feature and more about making everyday interactions stable enough for co-op play."
+    },
+    {
+      "title": "Engine fork and team builds",
+      "phase": "Production setup",
+      "shortText": "The project uses a custom Unreal setup with AngelScript and engine-side changes. I documented how to work with the engine fork, mark local engine modifications, and create UnrealGameSync builds so designers can use precompiled editor binaries instead of building the engine themselves.",
+      "media": {
+        "src": "/assets/vogglenauts/ugs.png",
+        "alt": "UnrealGameSync showing Vogglenauts project changelists and sync status",
+        "type": "image",
+        "caption": "UnrealGameSync setup for team builds and project syncing."
+      },
+      "annotations": [
+        {
+          "x": 32,
+          "y": 62,
+          "label": "Engine changes",
+          "detail": "Engine edits are marked clearly so they can be found again during merges and debugging."
+        },
+        {
+          "x": 70,
+          "y": 42,
+          "label": "UGS builds",
+          "detail": "Precompiled editor builds keep non-programmers moving without local engine build times.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "This is the kind of unglamorous setup work that makes a student team project much easier to keep moving."
+    }
+  ],
+  "closing": [
+    "Vogglenauts is a good example of the programming work I like: not just making one feature work, but building the systems, conventions, and workflow that let a team keep adding game content without fighting the codebase."
+  ]
+}

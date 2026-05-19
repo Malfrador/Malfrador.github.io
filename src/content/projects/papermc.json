@@ -1,0 +1,18 @@
+{
+  "title": "PaperMC",
+  "slug": "papermc",
+  "type": "Open-source server software",
+  "status": "Contributor and triage",
+  "year": 2024,
+  "ongoing": true,
+  "summary": "Contributor and triage work for one of the most widely used Minecraft server software projects.",
+  "role": "Contributor",
+  "tags": ["Java", "Open source", "QA", "Triage", "Modding"],
+  "cover": "/assets/paper/cover.png",
+  "links": [
+    { "label": "PaperMC", "href": "https://papermc.io/" }
+  ],
+  "featured": false,
+  "caseStudy": false,
+  "order": 20
+}

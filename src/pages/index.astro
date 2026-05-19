@@ -1,0 +1,404 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import LinkButton from '../components/LinkButton.astro';
+import TagList from '../components/TagList.astro';
+
+const projectEntries = await getCollection('projects');
+const projects = projectEntries
+  .map((entry) => entry.data)
+  .sort((a, b) => Number(b.featured) - Number(a.featured) || a.order - b.order || b.year - a.year);
+
+const featured = projects.filter((project) => project.featured);
+const otherProjects = projects.filter((project) => !project.featured);
+
+const skillGroups = [
+  {
+    title: 'Software systems',
+    tags: ['Java', 'TypeScript', 'C#', 'Data-driven systems', 'Scripting', 'Git', 'Gradle', 'Linux']
+  },
+  {
+    title: 'Game design and technology',
+    tags: ['Game design', 'Economy design', 'Combat design', 'Unreal Engine', 'Unity', 'Godot', 'Multiplayer', 'RPG systems']
+  },
+  {
+    title: 'Product work',
+    tags: ['Designer tooling', 'Planning workflows', 'Content authoring', 'Technical writing', 'QA', 'Open source']
+  }
+];
+---
+
+<BaseLayout>
+  <section class="hero section">
+    <div class="hero-copy">
+      <h1 class="hero-title">Malte Schümann</h1>
+      <p>
+        I mostly like working on systems that people can actually use and change:
+        gameplay systems, multiplayer prototypes, content tools, and business software.
+      </p>
+      <div class="availability">
+        <strong>Open for contract work</strong>
+        <span>Gameplay systems, modding, tools, and small software projects.</span>
+      </div>
+      <div class="hero-actions">
+        <LinkButton href="#work" label="View work" variant="primary" />
+        <LinkButton href="mailto:schuemann.malte@gmail.com" label="Email" />
+        <LinkButton href="https://github.com/Malfrador" label="GitHub" />
+      </div>
+    </div>
+    <a class="hero-preview" href="/projects/kumi/" aria-label="Open Kumi case study">
+      <img src="/assets/kumi/overview.png" alt="" />
+      <div>
+        <span>Featured project</span>
+        <strong>Kumi</strong>
+        <p>Event scheduling software for cinemas and venues.</p>
+      </div>
+    </a>
+  </section>
+
+  <section class="section" id="work">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Selected work</h2>
+      </div>
+    </div>
+    <div class="grid featured">
+      {featured.map((project) => <ProjectCard project={project} />)}
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">Other projects</h2>
+      </div>
+      <div class="carousel-controls" aria-label="Other project carousel controls">
+        <button type="button" data-carousel-prev aria-label="Scroll other projects left">‹</button>
+        <button type="button" data-carousel-next aria-label="Scroll other projects right">›</button>
+      </div>
+    </div>
+    <div class="project-carousel" data-project-carousel aria-label="Other projects" tabindex="0">
+      {otherProjects.map((project) => <ProjectCard project={project} compact />)}
+    </div>
+  </section>
+
+  <section class="section skills" id="skills">
+    <div class="section-header">
+      <div>
+        <h2 class="section-title">What I work with</h2>
+      </div>
+    </div>
+    <div class="skills-grid">
+      {skillGroups.map((group) => (
+        <article>
+          <h3>{group.title}</h3>
+          <TagList tags={group.tags} />
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section about" id="about">
+    <div>
+      <h2 class="section-title">About</h2>
+      <p class="section-copy">
+        I am currently finishing my bachelor's in Game Development and Management at HNU Neu-Ulm.
+        <br />
+        Most of my work is programming-heavy, usually around gameplay systems, tools,
+        configurable content systems, and web/software projects.
+      </p>
+      <div class="hero-actions">
+        <LinkButton href="/docs/malte-schuemann-cv.pdf" label="Download CV" variant="primary" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section contact" id="contact">
+    <div>
+      <h2 class="section-title">Contact</h2>
+      <p class="section-copy">
+        I am open to contract work, especially around gameplay systems, modding,
+        tooling, and web/software projects. 
+        <br />
+        Email works best for formal contact;
+        Discord is usually easiest for modding-related work.
+      </p>
+      <div class="hero-actions">
+        <LinkButton href="mailto:schuemann.malte@gmail.com" label="schuemann.malte@gmail.com" variant="primary" />
+        <span class="contact-pill">Discord: malfrador</span>
+        <LinkButton href="https://github.com/Malfrador" label="github.com/Malfrador" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const carousel = document.querySelector<HTMLElement>('[data-project-carousel]');
+  const previousButton = document.querySelector<HTMLButtonElement>('[data-carousel-prev]');
+  const nextButton = document.querySelector<HTMLButtonElement>('[data-carousel-next]');
+
+  if (carousel && previousButton && nextButton) {
+    const updateButtons = () => {
+      const maxScroll = carousel.scrollWidth - carousel.clientWidth;
+      previousButton.disabled = carousel.scrollLeft <= 1;
+      nextButton.disabled = carousel.scrollLeft >= maxScroll - 1;
+    };
+
+    const scrollByPage = (direction: -1 | 1) => {
+      carousel.scrollBy({
+        left: direction * carousel.clientWidth * 0.82,
+        behavior: 'smooth'
+      });
+    };
+
+    previousButton.addEventListener('click', () => scrollByPage(-1));
+    nextButton.addEventListener('click', () => scrollByPage(1));
+    carousel.addEventListener('scroll', updateButtons, { passive: true });
+    window.addEventListener('resize', updateButtons);
+    updateButtons();
+  }
+</script>
+
+<style>
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.02fr) minmax(320px, 0.78fr);
+    align-items: center;
+    gap: 44px;
+    min-height: calc(70svh - 78px);
+    padding-top: 42px;
+  }
+
+  #work {
+    padding-top: 42px;
+  }
+
+  .hero-title {
+    margin: 0;
+    color: var(--accent);
+    font-size: clamp(2.4rem, 5vw, 4.8rem);
+    font-weight: 850;
+    line-height: 1;
+    letter-spacing: 0;
+  }
+
+  .hero-copy > p:not(.section-kicker) {
+    max-width: 760px;
+    margin: 20px 0 0;
+    color: var(--muted);
+    font-size: clamp(1.28rem, 2.4vw, 1.9rem);
+    line-height: 1.35;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .availability {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 12px;
+    max-width: 760px;
+    margin-top: 34px;
+    border-left: 3px solid var(--accent);
+    padding: 10px 0 10px 14px;
+  }
+
+  .availability strong {
+    color: var(--text);
+    font-size: 1rem;
+  }
+
+  .availability span {
+    color: var(--muted);
+  }
+
+  .contact-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+    padding: 10px 14px;
+    font-weight: 850;
+  }
+
+  .hero-preview {
+    display: block;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .hero-preview img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+  }
+
+  .hero-preview div {
+    padding: 18px;
+  }
+
+  .hero-preview span {
+    color: var(--accent-2);
+    font-size: 0.78rem;
+    font-weight: 850;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .hero-preview strong {
+    display: block;
+    margin-top: 6px;
+    font-size: 1.35rem;
+  }
+
+  .hero-preview p {
+    margin: 8px 0 0;
+    color: var(--muted);
+  }
+
+  .carousel-controls {
+    display: flex;
+    gap: 8px;
+  }
+
+  .carousel-controls button {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: var(--panel);
+    color: var(--text);
+    font-size: 1.7rem;
+    font-weight: 700;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .carousel-controls button:hover:not(:disabled),
+  .carousel-controls button:focus-visible {
+    border-color: color-mix(in srgb, var(--accent) 70%, var(--line));
+    background: color-mix(in srgb, var(--panel-strong) 82%, var(--accent));
+    outline: none;
+  }
+
+  .carousel-controls button:disabled {
+    cursor: default;
+    opacity: 0.38;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+
+  .project-carousel {
+    display: flex;
+    gap: 18px;
+    margin-inline: -24px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    padding: 0 24px 16px;
+    scroll-padding-inline: 24px;
+    scroll-snap-type: x proximity;
+  }
+
+  .project-carousel:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
+
+  .project-carousel :global(.project-card) {
+    flex: 0 0 clamp(300px, 31vw, 420px);
+    scroll-snap-align: start;
+  }
+
+  .project-carousel::-webkit-scrollbar {
+    height: 10px;
+  }
+
+  .project-carousel::-webkit-scrollbar-track {
+    background: color-mix(in srgb, var(--panel) 72%, transparent);
+    border-radius: 999px;
+  }
+
+  .project-carousel::-webkit-scrollbar-thumb {
+    background: var(--line);
+    border-radius: 999px;
+  }
+
+  .project-carousel::-webkit-scrollbar-thumb:hover {
+    background: var(--subtle);
+  }
+
+  .about,
+  .contact {
+    border-top: 1px solid var(--line);
+    padding-top: 28px;
+  }
+
+  .about {
+    padding-bottom: 28px;
+  }
+
+  .skills-grid article {
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-bottom: 28px;
+  }
+
+  .skills-grid h3 {
+    margin: 0 0 20px;
+    font-size: 1.26rem;
+  }
+
+  .contact {
+    padding-bottom: 96px;
+  }
+
+  @media (max-width: 900px) {
+    .hero,
+    .skills-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero {
+      min-height: auto;
+      padding-top: 52px;
+    }
+
+    .project-carousel {
+      margin-inline: -18px;
+      padding-inline: 18px;
+      scroll-padding-inline: 18px;
+    }
+
+    .project-carousel :global(.project-card) {
+      flex-basis: min(86vw, 360px);
+    }
+
+    .carousel-controls {
+      margin-top: 16px;
+    }
+  }
+</style>

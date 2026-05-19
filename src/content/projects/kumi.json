@@ -1,0 +1,16 @@
+{
+  "title": "Kumi.run",
+  "slug": "kumi",
+  "type": "Event scheduling SaaS",
+  "status": "In development",
+  "year": 2026,
+  "summary": "A scheduling product for cinemas and event venues: import events, derive staffing needs, generate shifts, and keep replacements and availability manageable.",
+  "role": "Independent developer",
+  "tags": ["SaaS", "Scheduling", "Bun", "React", "PostgreSQL", "OR-Tools"],
+  "cover": "/assets/kumi/overview.png",
+  "links": [],
+  "featured": true,
+  "caseStudy": true,
+  "order": 2,
+  "draft": false
+}

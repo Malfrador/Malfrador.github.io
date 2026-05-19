@@ -1,0 +1,218 @@
+---
+interface Annotation {
+  x: number;
+  y: number;
+  label: string;
+  detail: string;
+  placement?: 'left' | 'right' | 'top' | 'bottom';
+  href?: string;
+}
+
+interface Media {
+  src: string;
+  alt: string;
+  type?: 'image' | 'video';
+  caption?: string;
+}
+
+interface Props {
+  media: Media;
+  annotations?: Annotation[];
+}
+
+const { media, annotations = [] } = Astro.props;
+---
+
+<figure class="annotated-media">
+  <div class="media-frame">
+    {media.type === 'video' ? (
+      <video controls preload="metadata" playsinline>
+        <source src={media.src} type="video/mp4" />
+      </video>
+    ) : (
+      <img src={media.src} alt={media.alt} loading="lazy" />
+    )}
+
+    {annotations.length > 0 && (
+      <ol class="annotations" aria-label="Media annotations">
+        {annotations.map((annotation) => (
+          <li class={`placement-${annotation.placement ?? 'right'}`} style={`--x: ${annotation.x}%; --y: ${annotation.y}%;`}>
+            <button type="button" aria-label={`${annotation.label}: ${annotation.detail}`}>
+              <span class="callout">
+                <strong>{annotation.label}</strong>
+                <span>{annotation.detail}</span>
+                {annotation.href && <a href={annotation.href}>Open reference</a>}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ol>
+    )}
+  </div>
+  {media.caption && <figcaption>{media.caption}</figcaption>}
+</figure>
+
+<style>
+  .annotated-media {
+    margin: 0;
+  }
+
+  .media-frame {
+    position: relative;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: #080a0c;
+  }
+
+  img,
+  video {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    object-fit: contain;
+    background: #080a0c;
+  }
+
+  figcaption {
+    margin-top: 10px;
+    color: var(--subtle);
+    font-size: 0.9rem;
+  }
+
+  .annotations {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    pointer-events: none;
+  }
+
+  li {
+    position: absolute;
+    left: var(--x);
+    top: var(--y);
+    pointer-events: auto;
+  }
+
+  button {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 0;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .callout {
+    position: absolute;
+    width: min(260px, 42vw);
+    max-width: calc(100vw - 32px);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: rgba(17, 22, 27, 0.95);
+    padding: 10px 12px;
+    color: var(--muted);
+    text-align: left;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.34);
+  }
+
+  .callout::after {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: rgba(17, 22, 27, 0.95);
+    content: "";
+  }
+
+  .placement-right .callout {
+    left: 18px;
+    top: 0;
+    transform: translateY(-50%);
+  }
+
+  .placement-right .callout::after {
+    left: -7px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    border-left: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .placement-left .callout {
+    right: 18px;
+    top: 0;
+    transform: translateY(-50%);
+  }
+
+  .placement-left .callout::after {
+    right: -7px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    border-right: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+
+  .placement-top .callout {
+    left: 0;
+    bottom: 18px;
+    transform: translateX(-50%);
+  }
+
+  .placement-top .callout::after {
+    left: 50%;
+    bottom: -7px;
+    transform: translateX(-50%) rotate(45deg);
+    border-right: 1px solid var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .placement-bottom .callout {
+    left: 0;
+    top: 18px;
+    transform: translateX(-50%);
+  }
+
+  .placement-bottom .callout::after {
+    left: 50%;
+    top: -7px;
+    transform: translateX(-50%) rotate(45deg);
+    border-left: 1px solid var(--line);
+    border-top: 1px solid var(--line);
+  }
+
+  .callout strong {
+    display: block;
+    color: var(--text);
+    font-size: 0.86rem;
+  }
+
+  .callout span {
+    display: block;
+    margin-top: 3px;
+    font-size: 0.78rem;
+  }
+
+  .callout a {
+    display: inline-block;
+    margin-top: 6px;
+    color: var(--accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  button:focus-visible .callout {
+    outline: 3px solid var(--text);
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 760px) {
+    .callout {
+      width: min(210px, 54vw);
+    }
+  }
+</style>

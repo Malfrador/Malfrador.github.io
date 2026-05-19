@@ -1,0 +1,47 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  variant?: 'primary' | 'secondary';
+}
+
+const { href, label, variant = 'secondary' } = Astro.props;
+const external = href.startsWith('http') || href.startsWith('mailto:');
+---
+
+<a class:list={['link-button', variant]} href={href} target={external ? '_blank' : undefined} rel={external ? 'noreferrer' : undefined}>
+  <span>{label}</span>
+  <span aria-hidden="true">↗</span>
+</a>
+
+<style>
+  .link-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 42px;
+    border-radius: 8px;
+    padding: 10px 14px;
+    text-decoration: none;
+    font-weight: 850;
+  }
+
+  .primary {
+    background: var(--accent);
+    color: #101410;
+  }
+
+  .secondary {
+    border: 1px solid var(--line);
+    background: var(--panel);
+    color: var(--text);
+  }
+
+  .link-button:hover,
+  .link-button:focus-visible {
+    transform: translateY(-1px);
+    outline: 2px solid color-mix(in srgb, var(--accent) 70%, transparent);
+    outline-offset: 2px;
+  }
+</style>

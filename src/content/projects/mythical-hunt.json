@@ -1,0 +1,19 @@
+{
+  "title": "Mythical Hunt",
+  "slug": "mythical-hunt",
+  "type": "Co-op realtime tactics game",
+  "status": "Playable prototype",
+  "year": 2024,
+  "summary": "Two-player online co-op RTT game built in Unreal Engine 5 with character switching, networked abilities, and Steam multiplayer.",
+  "role": "Lead programmer",
+  "tags": ["Unreal Engine 5", "C++", "Blueprints", "Multiplayer", "GAS"],
+  "cover": "/assets/hunt/cover.png",
+  "links": [
+    { "label": "Trailer", "href": "https://www.youtube.com/watch?v=GH8DZozDGMk" },
+    { "label": "itch.io", "href": "https://sporegameshnu.itch.io/mythical-hunt" },
+    { "label": "GitHub", "href": "https://github.com/SporeGames/Hunt" }
+  ],
+  "featured": false,
+  "caseStudy": true,
+  "order": 30
+}

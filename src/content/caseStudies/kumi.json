@@ -1,0 +1,200 @@
+{
+  "project": "kumi",
+  "eyebrow": "Event scheduling SaaS",
+  "headline": "Kumi",
+  "intro": "Kumi is a scheduling product for cinemas and event-driven venues. The core idea is simple: events go in, staffing needs are derived from them, and the planner gets usable shifts instead of maintaining a fragile spreadsheet by hand. I built it as a full-stack product with a Bun/Hono API, React frontend, PostgreSQL data model, and an optimization service for shift suggestions.",
+  "facts": [
+    { "label": "Domain", "value": "Cinema and event staffing", "group": "Product" },
+    { "label": "Flow", "value": "Events to staffing needs to shifts", "group": "Product" },
+    { "label": "Role", "value": "Independent developer", "group": "Role" },
+    { "label": "Backend", "value": "Bun, Hono, Drizzle, better-auth", "group": "Tech" },
+    { "label": "Frontend", "value": "React, Vite, Tailwind, shadcn/ui", "group": "Tech" },
+    { "label": "Data", "value": "PostgreSQL, shared Zod schemas", "group": "Tech" },
+    { "label": "Solver", "value": "FastAPI + OR-Tools", "group": "Tech" }
+  ],
+  "hero": {
+    "src": "/assets/kumi/overview.png",
+    "alt": "Kumi schedule view with cinema screens, events, assigned shifts, warnings, and staff sidebar",
+    "type": "image",
+    "caption": "The main schedule view: imported events, generated shifts, warnings, and assignable staff in one place."
+  },
+  "timeline": [
+    {
+      "title": "Replacing the spreadsheet",
+      "phase": "Starting point",
+      "shortText": "The old workflow was a hand-maintained weekly grid. It worked, but only because the planner kept a lot of rules in their head: roles, screens, overlaps, opening hours, availability, and which people could actually do which jobs. Kumi turns those rules into product behavior instead of spreadsheet conventions.",
+      "media": {
+        "src": "/assets/kumi/before.png",
+        "alt": "Old spreadsheet-like shift planning view with colored cells",
+        "type": "image",
+        "caption": "The kind of manual planning Kumi is meant to replace."
+      },
+      "annotations": [
+        {
+          "x": 20,
+          "y": 38,
+          "label": "Manual grid",
+          "detail": "The plan is readable, but every rule has to be maintained by hand."
+        },
+        {
+          "x": 70,
+          "y": 54,
+          "label": "Hidden logic",
+          "detail": "Conflicts, qualifications, and staffing gaps are easy to miss when they are only color conventions.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "This gave the product a clear goal: keep the overview, but move the error-prone logic into the application."
+    },
+    {
+      "title": "Events become planning input",
+      "phase": "Event import",
+      "shortText": "For cinemas, the event schedule is the source of truth. Kumi starts there: imported screenings and events are placed on a timeline, grouped by space, and can be edited when needed. From that, the app can derive staffing needs instead of making the planner enter every shift manually.",
+      "media": {
+        "src": "/assets/kumi/event-import-view.png",
+        "alt": "Kumi event import view with cinema screenings on a timeline and event list sidebar",
+        "type": "image",
+        "caption": "Event import and editing view."
+      },
+      "annotations": [
+        {
+          "x": 35,
+          "y": 37,
+          "label": "Event timeline",
+          "detail": "Screenings are shown by space and time so the planner can inspect the raw operational input."
+        },
+        {
+          "x": 83,
+          "y": 32,
+          "label": "Import flow",
+          "detail": "Events can be imported, reviewed, edited, and cleared from the side panel.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "The planner works from real event data first, which makes later staffing suggestions much more grounded."
+    },
+    {
+      "title": "Generated shifts with visible warnings",
+      "phase": "Scheduling",
+      "shortText": "The schedule view combines events, generated shifts, staff availability, and warnings. The solver side can suggest shifts, while the UI still lets the planner review, drag, lock, clear, and regenerate parts of the plan. The important part is that the software explains problem areas instead of silently producing a plan.",
+      "media": {
+        "src": "/assets/kumi/overview.png",
+        "alt": "Kumi schedule overview with generated shifts and overlap warnings",
+        "type": "image",
+        "caption": "Generated shift plan with staff sidebar and overlap warnings."
+      },
+      "annotations": [
+        {
+          "x": 41,
+          "y": 27,
+          "label": "Generated shifts",
+          "detail": "Shift blocks are derived from the event load and can still be adjusted by the planner."
+        },
+        {
+          "x": 78,
+          "y": 20,
+          "label": "Assignable staff",
+          "detail": "The sidebar keeps hours, scheduled load, capabilities, and restrictions close to the schedule.",
+          "placement": "left"
+        },
+        {
+          "x": 47,
+          "y": 86,
+          "label": "Warnings",
+          "detail": "Overlaps and unresolved issues are surfaced instead of being hidden inside a spreadsheet."
+        }
+      ],
+      "outcome": "The screen keeps the dense overview planners need, but adds guardrails and automation around it."
+    },
+    {
+      "title": "The dashboard keeps operations moving",
+      "phase": "Daily operations",
+      "shortText": "Kumi is not only a planner view. The dashboard collects the operational work around a schedule: pending time off, today's shifts, replacement requests, week status, and monthly hours. That matters because scheduling software fails if it only handles the initial plan and ignores all the small changes afterward.",
+      "media": {
+        "src": "/assets/kumi/main.png",
+        "alt": "Kumi dashboard with time off, scheduled employees, replacement requests, week status, and monthly hour overview",
+        "type": "image",
+        "caption": "Dashboard for day-to-day scheduling operations."
+      },
+      "annotations": [
+        {
+          "x": 36,
+          "y": 42,
+          "label": "Today",
+          "detail": "Today's shifts and replacement actions are visible without opening the full schedule."
+        },
+        {
+          "x": 82,
+          "y": 24,
+          "label": "Hour tracking",
+          "detail": "Monthly hour progress helps show whether the plan is balanced across the team.",
+          "placement": "left"
+        },
+        {
+          "x": 49,
+          "y": 78,
+          "label": "Week status",
+          "detail": "Published and draft weeks show whether the schedule is ready or still being worked on."
+        }
+      ],
+      "outcome": "The surrounding workflow is part of the product, not an afterthought."
+    },
+    {
+      "title": "Employee-facing schedule",
+      "phase": "Staff workflow",
+      "shortText": "The employee view is intentionally narrower than the manager app. Staff need to see upcoming work, leave, availability, profile details, and notifications without the full planning interface. Keeping those views separate also fits the multi-tenant setup: kumi.run for the product, venue subdomains for organizations.",
+      "media": {
+        "src": "/assets/kumi/employee-event-list.png",
+        "alt": "Kumi employee mobile schedule list with upcoming cinema tasks and warnings",
+        "type": "image",
+        "caption": "Employee schedule view."
+      },
+      "annotations": [
+        {
+          "x": 26,
+          "y": 20,
+          "label": "Focused view",
+          "detail": "Employees see their own tasks instead of the whole planning board."
+        },
+        {
+          "x": 55,
+          "y": 95,
+          "label": "Mobile nav",
+          "detail": "The staff workflow is built around the things they actually need: schedule, leave, availability, profile, and notifications.",
+          "placement": "top"
+        }
+      ],
+      "outcome": "The same scheduling data supports both manager and employee workflows without forcing everyone into the same UI."
+    },
+    {
+      "title": "Full-stack product setup",
+      "phase": "Architecture",
+      "shortText": "The app is structured as a small monorepo: Hono on Bun for the API, React/Vite for the frontend, Drizzle and PostgreSQL for data, shared Zod schemas for API types, and a FastAPI/OR-Tools sidecar for optimization. Deployment is designed around a single Docker image for the app plus PostgreSQL, with wildcard subdomains for venues.",
+      "media": {
+        "src": "/assets/kumi/overview.png",
+        "alt": "Kumi schedule overview representing the full-stack scheduling product",
+        "type": "image",
+        "caption": "The UI is the visible part of a typed full-stack scheduling system."
+      },
+      "annotations": [
+        {
+          "x": 18,
+          "y": 13,
+          "label": "Bun app",
+          "detail": "The API and web app are built around Bun workspaces, with Hono serving API routes and static output."
+        },
+        {
+          "x": 61,
+          "y": 19,
+          "label": "Solver hook",
+          "detail": "Shift suggestions are handled as a separate optimization concern instead of being mixed into the UI.",
+          "placement": "left"
+        }
+      ],
+      "outcome": "Kumi is presented as a real product architecture, not just a UI mockup."
+    }
+  ],
+  "closing": [
+    "Kumi is useful portfolio material because it is practical software: messy operational rules, dense UI, permissions, auth, multi-tenant hosting, database modeling, and optimization all have to fit together."
+  ]
+}
